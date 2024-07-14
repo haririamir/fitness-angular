@@ -1,0 +1,15 @@
+<form (ngSubmit)="handleSubmit(f)" #f="ngForm">
+    <mat-form-field appearance="legacy">
+        <mat-label>Legacy form field</mat-label>
+        <input ngModel name="name" matInput placeholder="Placeholder">
+        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        <mat-hint>Hint</mat-hint>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Excersice</mat-label>
+        <mat-select ngModel name="exercise">
+            <mat-option *ngFor="let ex of exersices" [value]="ex.id">{{ex.name}}-{{ex.delay}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button mat-flat-button color="primary" type="submit">Submit</button>
+</form>

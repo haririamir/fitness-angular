@@ -1,0 +1,22 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>My App</span>
+  <span class="example-spacer"></span>
+
+  <button (click)="createTrain()" *ngIf="isAuth" mat-icon-button class="example-icon" #tooltip="matTooltip" matTooltip="Training"
+    matTooltipPosition="below">
+    <mat-icon>person_add</mat-icon>
+  </button>
+
+
+  <button *ngIf="!isAuth" mat-icon-button class="example-icon" #tooltip="matTooltip" matTooltip="Login"
+    matTooltipPosition="below">
+    <mat-icon>login</mat-icon>
+  </button>
+  <button (click)="logout()" *ngIf="isAuth" mat-icon-button class="example-icon" #tooltip="matTooltip"
+    matTooltip="Logout" matTooltipPosition="below">
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>

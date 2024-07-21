@@ -9,6 +9,7 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./exercise.component.css'],
 })
 export class ExerciseComponent implements OnInit {
+index: any;
   constructor(private exerciseService: ExerciseService) {}
   exercises = [] as IExersice[];
 

@@ -18,7 +18,7 @@ export class ExerciseService {
     ]);
   }
 
-  addExercises(exercise: IExersice) {
-    this.exercises.next([exercise]);
+  addExercises(exercise: IExersice[]) {
+    this.exercises.next(exercise);
   }
 }

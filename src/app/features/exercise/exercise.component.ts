@@ -17,9 +17,13 @@ export class ExerciseComponent implements OnInit {
   }
 
   handleSubmit(formValue: NgForm) {
-    this.exerciseService.addExercises({
-      id: Math.round(Math.random()),
-      ...formValue.value,
-    });
+    this.exerciseService.addExercises([
+      ...this.exercises,
+      {
+        id: Math.round(Math.random()),
+        ...formValue.value,
+      },
+    ]);
+    formValue.reset();
   }
 }

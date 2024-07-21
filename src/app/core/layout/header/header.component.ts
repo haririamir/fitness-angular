@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/auth/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
   }
 
   createTrain() {
-    this.router.navigate(['/training/create']);
+    this.router.navigate(['/exercises']);
   }
   ngOnInit(): void {
     this.auth.authChange.subscribe((statusUser) => (this.isAuth = statusUser));

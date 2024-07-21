@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard, PermissionService } from './auth/auth.guard';
-import { LoginComponent } from './auth/login/login.component';
 import { TrainingListComponent } from './training-list/training-list.component';
 import { FormComponent } from './training/form/form.component';
 import { TrainingComponent } from './training/training.component';
+import { LoginComponent } from './core/auth/login/login.component';
+import { AuthGuard, PermissionService } from './core/auth/auth.guard';
+import { ExerciseComponent } from './features/exercise/exercise.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -24,6 +25,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   { path: 'training', component: TrainingComponent, canActivate: [AuthGuard] },
+  { path: 'exercises', component: ExerciseComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

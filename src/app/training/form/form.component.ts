@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Exersice } from './exersice.model';
+import { IExersice } from '../../types/exercise/exersice.model';
+import { TraningsService } from 'src/app/training-list/tranings.service';
 
 @Component({
   selector: 'app-form',
@@ -8,15 +9,18 @@ import { Exersice } from './exersice.model';
   styleUrls: ['./form.component.css'],
 })
 export class FormComponent implements OnInit {
-  constructor() {}
-  exersices: Exersice[] = [
-    { name: 'Crunch', id: 1, delay: 1000 },
-    { name: 'Scott', id: 2, delay: 2000 },
-    { name: 'Long', id: 1, delay: 3000 },
-  ];
+  constructor(private traningsService: TraningsService) {}
+  exersices: IExersice[] = [
   
+  ];
+
   ngOnInit(): void {}
   handleSubmit(formValue: NgForm) {
-    console.log(formValue);
+    this.traningsService.addTrain({
+      name: formValue.value.name,
+      exercise: this.exersices.find((i) => i.id === formValue.value.exercise)!,
+      id: Math.random(),
+      delay: 1000,
+    });
   }
 }

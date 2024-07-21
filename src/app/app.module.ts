@@ -1,37 +1,35 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { FormsModule } from '@angular/forms';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TrainingListComponent } from './training-list/training-list.component';
-import { TrainingComponent } from './training/training.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LayoutModule } from './layout/layout.module';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { CoreModule } from './core/core.module';
 import { MaterialExampleModule } from './material.module';
-import { LoginComponent } from './auth/login/login.component';
-import { SignupComponent } from './auth/signup/signup.component';
-import { FormsModule } from '@angular/forms';
-import { AuthService } from './auth/auth.service';
+import { TrainingListComponent } from './training-list/training-list.component';
 import { FormComponent } from './training/form/form.component';
+import { TrainingComponent } from './training/training.component';
+import { AuthService } from './core/services/auth.service';
+import { FeaturesModule } from './features/features.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     TrainingListComponent,
     TrainingComponent,
-    LoginComponent,
-    SignupComponent,
     FormComponent,
   ],
   imports: [
+    CoreModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
-    MaterialExampleModule,
     MatToolbarModule,
-    LayoutModule,
+    MaterialExampleModule,
+    FeaturesModule,
   ],
   providers: [AuthService],
   bootstrap: [AppComponent],

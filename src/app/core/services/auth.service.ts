@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AuthModel } from './auth.model';
-import { User } from './user.model';
+import { AuthModel } from '../../types/auth/auth.model';
+import { User } from '../../types/auth/user.model';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 

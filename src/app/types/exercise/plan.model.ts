@@ -3,6 +3,6 @@ import { IExersice } from './exersice.model';
 export interface IPlan {
   id: number;
   name: string;
-  delay: number;
+  set: number;
   exercise: IExersice;
 }

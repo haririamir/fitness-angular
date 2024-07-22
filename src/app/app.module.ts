@@ -13,6 +13,7 @@ import { FormComponent } from './training/form/form.component';
 import { TrainingComponent } from './training/training.component';
 import { AuthService } from './core/services/auth.service';
 import { FeaturesModule } from './features/features.module';
+import { ExerciseService } from './features/services/exercise.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { FeaturesModule } from './features/features.module';
     MaterialExampleModule,
     FeaturesModule,
   ],
-  providers: [AuthService],
+  providers: [AuthService, ExerciseService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,0 +1,21 @@
+<form (ngSubmit)="handleSubmit(f)" #f="ngForm">
+  <div class="flex flex-col gap-3 mt-3">
+    <mat-form-field appearance="fill" class="w-100" autocomplete="password">
+      <mat-label>Name:</mat-label>
+      <input ngModel name="name" matInput placeholder="Name" />
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="w-100" autocomplete="password">
+      <mat-label>Set:</mat-label>
+      <input ngModel name="set" matInput placeholder="Set'S" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Exercise</mat-label>
+      <mat-select ngModel name="exercise">
+        <mat-option *ngFor="let ex of exercises" [value]="ex">{{
+          ex.name
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-flat-button color="accent" type="submit">Submit</button>
+  </div>
+</form>

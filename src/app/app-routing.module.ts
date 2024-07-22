@@ -6,6 +6,7 @@ import { TrainingComponent } from './training/training.component';
 import { LoginComponent } from './core/auth/login/login.component';
 import { AuthGuard, PermissionService } from './core/auth/auth.guard';
 import { ExerciseComponent } from './features/exercise/exercise.component';
+import { PlanRootComponent } from './features/plan-root/plan-root.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -26,6 +27,7 @@ const routes: Routes = [
   },
   { path: 'training', component: TrainingComponent, canActivate: [AuthGuard] },
   { path: 'exercises', component: ExerciseComponent, canActivate: [AuthGuard] },
+  { path: 'plans', component: PlanRootComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

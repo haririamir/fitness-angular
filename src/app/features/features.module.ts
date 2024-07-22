@@ -3,10 +3,26 @@ import { CommonModule } from '@angular/common';
 import { ExerciseComponent } from './exercise/exercise.component';
 import { MaterialExampleModule } from '../material.module';
 import { FormsModule } from '@angular/forms';
+import { PlanFormComponent } from './plan-root/plan-form/plan-form.component';
+import { PlanListComponent } from './plan-root/plan-list/plan-list.component';
+import { ExerciseService } from './services/exercise.service';
+import { PlanService } from './services/plan.service';
+import { PlanRootComponent } from './plan-root/plan-root.component';
 
 @NgModule({
-  declarations: [ExerciseComponent],
+  declarations: [
+    ExerciseComponent,
+    PlanFormComponent,
+    PlanListComponent,
+    PlanRootComponent,
+  ],
+  providers: [ExerciseService, PlanService],
   imports: [CommonModule, MaterialExampleModule, FormsModule],
-  exports: [ExerciseComponent],
+  exports: [
+    ExerciseComponent,
+    PlanFormComponent,
+    PlanListComponent,
+    PlanRootComponent,
+  ],
 })
 export class FeaturesModule {}

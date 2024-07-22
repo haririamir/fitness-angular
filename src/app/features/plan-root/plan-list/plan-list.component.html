@@ -1,1 +1,5 @@
-<p>plan-list works!</p>
+<mat-list>
+  <mat-list-item *ngFor="let pl of plans">
+    {{ pl.name }}--{{ pl.exercise.name }}-set: {{ pl.set }}
+  </mat-list-item>
+</mat-list>

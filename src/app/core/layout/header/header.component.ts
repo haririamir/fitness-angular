@@ -18,6 +18,9 @@ export class HeaderComponent implements OnInit {
   createTrain() {
     this.router.navigate(['/exercises']);
   }
+  createPlan() {
+    this.router.navigate(['/plans']);
+  }
   ngOnInit(): void {
     this.auth.authChange.subscribe((statusUser) => (this.isAuth = statusUser));
   }

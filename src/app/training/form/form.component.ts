@@ -10,9 +10,7 @@ import { TraningsService } from 'src/app/training-list/tranings.service';
 })
 export class FormComponent implements OnInit {
   constructor(private traningsService: TraningsService) {}
-  exersices: IExersice[] = [
-  
-  ];
+  exersices: IExersice[] = [];
 
   ngOnInit(): void {}
   handleSubmit(formValue: NgForm) {
@@ -20,7 +18,7 @@ export class FormComponent implements OnInit {
       name: formValue.value.name,
       exercise: this.exersices.find((i) => i.id === formValue.value.exercise)!,
       id: Math.random(),
-      delay: 1000,
+      set: 1000,
     });
   }
 }

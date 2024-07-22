@@ -1,20 +1,28 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { ExerciseService } from '../services/exercise.service';
-import { IExersice } from 'src/app/types/exercise/exersice.model';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { IExersice } from 'src/app/types/exercise/exersice.model';
+import { ExerciseService } from '../services/exercise.service';
 
 @Component({
   selector: 'app-exercise',
   templateUrl: './exercise.component.html',
   styleUrls: ['./exercise.component.css'],
 })
-export class ExerciseComponent implements OnInit {
-index: any;
+export class ExerciseComponent implements OnInit, OnDestroy {
   constructor(private exerciseService: ExerciseService) {}
+
   exercises = [] as IExersice[];
+  subs: Subscription = new Subscription();
 
   ngOnInit(): void {
-    this.exerciseService.exercises.subscribe((exs) => (this.exercises = exs));
+    this.subs = this.exerciseService.exercises.subscribe(
+      (exs) => (this.exercises = exs)
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 
   handleSubmit(formValue: NgForm) {

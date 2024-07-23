@@ -25,6 +25,8 @@
     <div class="col-9">
       <mat-list role="list">
         <mat-list-item
+          draggable="true"
+          @list2
           *ngFor="let ex of exercises; let i = index"
           role="listitem"
           >{{ i }}->{{ ex.name }}</mat-list-item

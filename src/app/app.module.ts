@@ -14,6 +14,7 @@ import { TrainingComponent } from './training/training.component';
 import { AuthService } from './core/services/auth.service';
 import { FeaturesModule } from './features/features.module';
 import { ExerciseService } from './features/services/exercise.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ExerciseService } from './features/services/exercise.service';
     MatToolbarModule,
     MaterialExampleModule,
     FeaturesModule,
+    HttpClientModule,
   ],
   providers: [AuthService, ExerciseService],
   bootstrap: [AppComponent],

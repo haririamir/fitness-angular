@@ -1,12 +1,13 @@
 import express from 'express';
 import { PrismaClient } from '@prisma/client';
-
+const cors = require('cors');
 const app = express();
 const prisma = new PrismaClient();
 
 app.use(express.json());
 
-app.get('/users', async (req, res) => {
+app.use(cors());
+app.get('/api/users', async (req, res) => {
   const users = await prisma.user.findMany()
   console.log(users)
   res.json(users);

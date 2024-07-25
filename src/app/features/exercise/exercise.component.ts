@@ -53,9 +53,10 @@ export class ExerciseComponent implements OnInit, OnDestroy {
   subs: Subscription = new Subscription();
 
   ngOnInit(): void {
-    this.subs = this.exerciseService.exercises.subscribe(
-      (exs) => (this.exercises = exs)
-    );
+    this.subs = this.exerciseService.getAll().subscribe((exs) => {
+      console.log(exs);
+      this.exercises = exs;
+    });
   }
 
   ngOnDestroy(): void {
@@ -63,13 +64,12 @@ export class ExerciseComponent implements OnInit, OnDestroy {
   }
 
   handleSubmit(formValue: NgForm) {
-    this.exerciseService.addExercises([
-      ...this.exercises,
-      {
-        id: Math.round(Math.random()),
-        ...formValue.value,
+    this.exerciseService.create(formValue.value).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.exercises = [{ ...res }, ...this.exercises];
+        formValue.reset();
       },
-    ]);
-    formValue.reset();
+    });
   }
 }

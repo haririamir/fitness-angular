@@ -6,8 +6,9 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatTable } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { IExersice } from 'src/app/types/exercise/exersice.model';
 import { ExerciseService } from '../services/exercise.service';
@@ -62,6 +63,8 @@ export class ExerciseComponent implements OnInit, OnDestroy {
   ];
   myForm = {} as FormGroup;
 
+  @ViewChild(MatTable) table = {} as MatTable<IExersice>;
+
   constructor(
     private exerciseService: ExerciseService,
     private fb: FormBuilder
@@ -115,7 +118,15 @@ export class ExerciseComponent implements OnInit, OnDestroy {
           category: this.myForm.value.category,
         })
         .subscribe({
-          next: (res) => {},
+          next: (res) => {
+            const idx = this.exercises.findIndex(
+              (i) => i.exercise_id === res.exercise_id
+            );
+
+            this.exercises[idx] = res;
+            this.table.renderRows();
+            this.myForm.reset();
+          },
         });
       return;
     }

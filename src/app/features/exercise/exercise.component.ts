@@ -1,52 +1,47 @@
+import {
+  animate,
+  keyframes,
+  state,
+  style,
+  transition,
+  trigger
+} from '@angular/animations';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { IExersice } from 'src/app/types/exercise/exersice.model';
 import { ExerciseService } from '../services/exercise.service';
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
 
 @Component({
   selector: 'app-exercise',
   templateUrl: './exercise.component.html',
   styleUrls: ['./exercise.component.css'],
   animations: [
-    trigger('list1', [
-      state(
-        'enter',
-        style({
-          transform: 'translateX(0)',
-        })
-      ),
-      transition('void=> *', [
-        style({
-          transform: 'translateX(-100px)',
-        }),
-        animate(500),
-      ]),
-    ]),
     trigger('list2', [
       state(
         'exit',
         style({
-          transform: 'translateX(0)',
+          opacity: 1,
         })
       ),
-      transition('* <=> void', [
-        style({
-          transform: 'translateX(-100px)',
-        }),
-        animate(500),
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate(
+          '.5s',
+          keyframes([
+            style({ opacity: 0, offset: 0 }),
+            style({ opacity: 0.25, offset: 0.2 }),
+            style({ opacity: 0.5, offset: 0.3 }),
+            style({ opacity: 0.75, offset: 1 }),
+          ])
+        ),
       ]),
     ]),
   ],
 })
 export class ExerciseComponent implements OnInit, OnDestroy {
+  displayedColumns: string[] = ['exercise_id', 'name', 'description', 'category'];
+
   constructor(private exerciseService: ExerciseService) {}
 
   exercises = [] as IExersice[];
@@ -54,7 +49,6 @@ export class ExerciseComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subs = this.exerciseService.getAll().subscribe((exs) => {
-      console.log(exs);
       this.exercises = exs;
     });
   }
@@ -66,7 +60,6 @@ export class ExerciseComponent implements OnInit, OnDestroy {
   handleSubmit(formValue: NgForm) {
     this.exerciseService.create(formValue.value).subscribe({
       next: (res) => {
-        console.log(res);
         this.exercises = [{ ...res }, ...this.exercises];
         formValue.reset();
       },

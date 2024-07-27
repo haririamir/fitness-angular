@@ -7,7 +7,7 @@ import {
   trigger,
 } from '@angular/animations';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { IExersice } from 'src/app/types/exercise/exersice.model';
 import { ExerciseService } from '../services/exercise.service';
@@ -60,13 +60,25 @@ export class ExerciseComponent implements OnInit, OnDestroy {
     'category',
     'actions',
   ];
+  myForm = {} as FormGroup;
 
-  constructor(private exerciseService: ExerciseService) {}
+  constructor(
+    private exerciseService: ExerciseService,
+    private fb: FormBuilder
+  ) {}
 
   exercises = [] as IExersice[];
+  exercise = {} as IExersice;
   subs: Subscription = new Subscription();
+  isEdit = false as boolean;
 
   ngOnInit(): void {
+    this.myForm = this.fb.group({
+      exercise_id: '',
+      name: '',
+      description: '',
+      category: '',
+    });
     this.subs = this.exerciseService.getAll().subscribe((exs) => {
       this.exercises = exs;
     });
@@ -86,12 +98,39 @@ export class ExerciseComponent implements OnInit, OnDestroy {
     });
   }
 
-  handleSubmit(formValue: NgForm) {
-    this.exerciseService.create(formValue.value).subscribe({
-      next: (res) => {
-        this.exercises = [{ ...res }, ...this.exercises];
-        formValue.reset();
-      },
-    });
+  onEditClicked(element: IExersice) {
+    this.isEdit = true;
+    this.myForm = this.fb.group(element);
+  }
+
+  handleSubmit() {
+    console.log(this.myForm);
+
+    if (this.isEdit) {
+      this.isEdit = true;
+      this.exerciseService
+        .update(this.myForm.value.exercise_id, {
+          name: this.myForm.value.name,
+          description: this.myForm.value.description,
+          category: this.myForm.value.category,
+        })
+        .subscribe({
+          next: (res) => {},
+        });
+      return;
+    }
+
+    this.exerciseService
+      .create({
+        name: this.myForm.value.name,
+        description: this.myForm.value.description,
+        category: this.myForm.value.category,
+      })
+      .subscribe({
+        next: (res) => {
+          this.exercises = [{ ...res }, ...this.exercises];
+          this.myForm.reset();
+        },
+      });
   }
 }

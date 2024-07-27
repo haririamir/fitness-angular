@@ -34,6 +34,11 @@ export class DataService {
       .delete<any>(`${this.endpoint}/${id}`)
       .pipe(catchError(this.handleError));
   }
+  update(id: any, data: any) {
+    return this.http
+      .patch<any>(`${this.endpoint}/${id}`, data)
+      .pipe(catchError(this.handleError));
+  }
 
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {

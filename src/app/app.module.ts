@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -25,6 +25,7 @@ import { MaterialExampleModule } from './material.module';
     MaterialExampleModule,
     FeaturesModule,
     HttpClientModule,
+    ReactiveFormsModule,
   ],
   providers: [AuthService, ExerciseService],
   bootstrap: [AppComponent],

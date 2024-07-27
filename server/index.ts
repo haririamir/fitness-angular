@@ -1,6 +1,5 @@
 import express from 'express';
 import { Prisma, PrismaClient } from '@prisma/client';
-import { body, validationResult } from 'express-validator';
 import {
   exerciseSchema,
   validateSchema,
@@ -8,12 +7,6 @@ import {
 const cors = require('cors');
 const app = express();
 const prisma = new PrismaClient();
-
-export const exerciseValidato = [
-  body('exercise.name', 'username does not Empty').not().isEmpty(),
-  body('exercise.description', 'does not Empty').isEmpty(),
-  body('user.category', 'does not Empty').isEmpty(),
-];
 
 app.use(express.json());
 app.use(cors());
@@ -44,17 +37,34 @@ app.post(
   '/api/exercises',
   validateSchema(exerciseSchema),
   async (req: any, res: any) => {
-    const errors = validationResult(req);
-    if (errors.isEmpty()) {
-      let exercise: Prisma.ExerciseCreateInput;
-      exercise = {
-        name: req.body.name,
-        description: req.body.description,
-        category: req.body.category,
-      };
-      const create = await prisma.exercise.create({ data: exercise });
-      res.json(create);
-    }
+    let exercise: Prisma.ExerciseCreateInput;
+    exercise = {
+      name: req.body.name,
+      description: req.body.description,
+      category: req.body.category,
+    };
+    const create = await prisma.exercise.create({ data: exercise });
+    res.json(create);
+  }
+);
+
+app.patch(
+  '/api/exercises/:id',
+  validateSchema(exerciseSchema),
+  async (req: any, res: any) => {
+    const id = parseInt(req.params.id);
+    const exercise = {
+      name: req.body.name,
+      description: req.body.description,
+      category: req.body.category,
+    };
+    const updateUser = await prisma.exercise.update({
+      where: {
+        exercise_id: id,
+      },
+      data: exercise,
+    });
+    res.json(updateUser);
   }
 );
 

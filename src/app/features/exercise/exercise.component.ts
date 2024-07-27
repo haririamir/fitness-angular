@@ -4,7 +4,7 @@ import {
   state,
   style,
   transition,
-  trigger
+  trigger,
 } from '@angular/animations';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
@@ -24,7 +24,7 @@ import { ExerciseService } from '../services/exercise.service';
           opacity: 1,
         })
       ),
-      transition(':enter', [
+      transition('void=>*', [
         style({ opacity: 0 }),
         animate(
           '.5s',
@@ -36,11 +36,30 @@ import { ExerciseService } from '../services/exercise.service';
           ])
         ),
       ]),
+      transition('*=>void', [
+        style({ opacity: 1, backgroundColor: 'red' }),
+        animate(
+          '.5s',
+          keyframes([
+            style({ opacity: 1, offset: 0 }),
+            style({ opacity: 0.75, offset: 0.2 }),
+            style({ opacity: 0.5, offset: 0.3 }),
+            style({ opacity: 0.25, offset: 0.4 }),
+            style({ opacity: 0, offset: 1 }),
+          ])
+        ),
+      ]),
     ]),
   ],
 })
 export class ExerciseComponent implements OnInit, OnDestroy {
-  displayedColumns: string[] = ['exercise_id', 'name', 'description', 'category'];
+  displayedColumns: string[] = [
+    'exercise_id',
+    'name',
+    'description',
+    'category',
+    'actions',
+  ];
 
   constructor(private exerciseService: ExerciseService) {}
 
@@ -55,6 +74,16 @@ export class ExerciseComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
+  }
+
+  onRowClicked(element: IExersice) {
+    this.exerciseService.delete(element.exercise_id).subscribe({
+      next: (res) => {
+        this.exercises = this.exercises.filter(
+          (i) => i.exercise_id !== element.exercise_id
+        );
+      },
+    });
   }
 
   handleSubmit(formValue: NgForm) {

@@ -71,7 +71,12 @@
         <th mat-header-cell *matHeaderCellDef>Category</th>
         <td mat-cell *matCellDef="let element">{{ element.category }}</td>
       </ng-container>
-
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-button (click)="onRowClicked(element)">Action</button>
+        </td>
+      </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
       <tr @list2 mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>

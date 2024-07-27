@@ -1,6 +1,6 @@
 export interface IExersice {
   name: string;
   description: string;
-  id: number;
+  exercise_id: number;
   category: string;
 }

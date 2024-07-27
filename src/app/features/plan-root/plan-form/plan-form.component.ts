@@ -3,15 +3,15 @@ import { Subscription } from 'rxjs';
 import { ExerciseService } from '../../services/exercise.service';
 import { NgForm } from '@angular/forms';
 import { PlanService } from '../../services/plan.service';
+import { IExersice } from 'src/app/types/exercise/exersice.model';
 
 @Component({
   selector: 'app-plan-form',
   templateUrl: './plan-form.component.html',
   styleUrls: ['./plan-form.component.css'],
 })
-export class PlanFormComponent implements OnInit, OnDestroy {
-  exercises: any;
-  private dataSubscription: Subscription = new Subscription();
+export class PlanFormComponent implements OnInit {
+  exercises = [] as IExersice[];
 
   constructor(
     private exerciseService: ExerciseService,
@@ -19,14 +19,7 @@ export class PlanFormComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.dataSubscription = this.exerciseService.exercises.subscribe(
-      (data) => (this.exercises = data)
-    );
-  }
-  ngOnDestroy(): void {
-    if (this.dataSubscription) {
-      this.dataSubscription.unsubscribe();
-    }
+    this.exerciseService.getAll().subscribe((res) => (this.exercises = res));
   }
 
   handleSubmit(formValue: NgForm) {

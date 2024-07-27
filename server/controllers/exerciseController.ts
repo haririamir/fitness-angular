@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { exerciseSchema } from '../middleware/validationMiddleware';
 import { Prisma } from '@prisma/client';
 import prisma from '../prismaClient';
+import { number } from 'joi';
 
 export const getExercises = async (
   req: Request,
@@ -19,6 +20,7 @@ export const createExercise = async (
 
   if (error) {
     res.status(400).json({ error: error.details[0].message });
+    return;
   }
 
   let exercise: Prisma.ExerciseCreateInput;
@@ -36,6 +38,17 @@ export const updateExercise = async (
   res: Response
 ): Promise<void> => {
   const id = parseInt(req.params.id);
+
+  const { error } = exerciseSchema.validate(req.body);
+
+  if (error) {
+    res.status(400).json({ error: error.details[0].message });
+    return;
+  }
+  if (!id) {
+    res.status(404).json({ error: 'Not found' });
+    return;
+  }
   const exercise = {
     name: req.body.name,
     description: req.body.description,

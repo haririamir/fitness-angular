@@ -58,6 +58,23 @@ app.post(
   }
 );
 
+app.delete('/api/exercises/:id', async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    await prisma.exercise.delete({
+      where: {
+        exercise_id: id,
+      },
+    });
+    res.send({ message: 'Item deleted successfully' });
+  } catch (error: any) {
+    if (error.code === 'P2025') {
+      return res.status(404).send({ message: 'Item not found' });
+    }
+    res.status(500).send({ message: 'Server error', error });
+  }
+});
+
 app.listen(3000, () => {
   console.log('Server is running on http://localhost:3000');
 });

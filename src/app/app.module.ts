@@ -1,28 +1,20 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { MaterialExampleModule } from './material.module';
-import { TrainingListComponent } from './training-list/training-list.component';
-import { FormComponent } from './training/form/form.component';
-import { TrainingComponent } from './training/training.component';
 import { AuthService } from './core/services/auth.service';
 import { FeaturesModule } from './features/features.module';
 import { ExerciseService } from './features/services/exercise.service';
-import { HttpClientModule } from '@angular/common/http';
+import { MaterialExampleModule } from './material.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    TrainingListComponent,
-    TrainingComponent,
-    FormComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     CoreModule,
     BrowserModule,

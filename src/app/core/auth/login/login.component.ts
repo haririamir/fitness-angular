@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.authUser.authChange.subscribe((statusAuth) => {
       if (statusAuth) {
-        this.route.navigate(['/trainings']);
+        this.route.navigate(['/']);
       }
     });
   }

@@ -1,3 +1,15 @@
+
+.example-container {
+  position: relative;
+}
+
+.example-table-container {
+  position: relative;
+  min-height: 200px;
+  max-height: 700px;
+  overflow: auto;
+}
+
 table {
   width: 100%;
 }

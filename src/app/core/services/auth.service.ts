@@ -19,7 +19,7 @@ export class AuthService {
       id: Math.round(Math.random() * 1000).toString(),
     };
     this.authChange.next(true);
-    this.route.navigate(['/trainings']);
+    this.route.navigate(['/']);
   }
 
   logout() {

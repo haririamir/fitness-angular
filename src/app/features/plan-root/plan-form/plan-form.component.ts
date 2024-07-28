@@ -22,7 +22,5 @@ export class PlanFormComponent implements OnInit {
     this.exerciseService.getAll().subscribe((res) => (this.exercises = res));
   }
 
-  handleSubmit(formValue: NgForm) {
-    this.planService.addPlan(formValue.value);
-  }
+  handleSubmit(formValue: NgForm) {}
 }

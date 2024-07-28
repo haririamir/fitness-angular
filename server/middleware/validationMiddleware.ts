@@ -12,7 +12,6 @@ export const validateSchema = (schema: Joi.Schema) => {
   };
 };
 
-// src/schemas/userSchema.ts
 
 export const exerciseSchema = Joi.object({
   name: Joi.string().required(),

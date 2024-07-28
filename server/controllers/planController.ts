@@ -3,12 +3,26 @@ import { Request, Response } from 'express';
 import { exerciseSchema } from '../middleware/validationMiddleware';
 import prisma from '../prismaClient';
 
-export const getExercises = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
-  const exercises = await prisma.exercise.findMany();
-  res.json(exercises);
+export const getPlans = async (req: Request, res: Response): Promise<void> => {
+  const plans = await prisma.workoutPlan.findMany({
+    select: {
+      workout_id: true,
+      user_id: true,
+      user: true,
+      workout: true,
+      start_date: true,
+      end_date: true,
+      workoutDetails: {
+        select: {
+          exercise: true,
+          sets: true,
+          reps: true,
+          base_weight: true,
+        },
+      },
+    },
+  });
+  res.json(plans);
 };
 
 export const createExercise = async (

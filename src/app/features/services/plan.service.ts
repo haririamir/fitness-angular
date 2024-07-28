@@ -12,10 +12,6 @@ export class PlanService extends DataService {
   plans: BehaviorSubject<IPlan[]> = new BehaviorSubject<IPlan[]>([]);
 
   constructor(http: HttpClient) {
-    super(http, 'http://localhost:3000/api/exercises');
-  }
-  
-  addPlan(plan: IPlan) {
-    this.plans.next([plan]);
+    super(http, 'http://localhost:3000/api/plans');
   }
 }

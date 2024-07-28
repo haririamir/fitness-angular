@@ -10,12 +10,13 @@ import { IPlan } from 'src/app/types/exercise/plan.model';
 })
 export class PlanListComponent implements OnInit {
   subs: Subscription = new Subscription();
-  plans = [] as IPlan[];
+  plans = [] as any[];
 
   constructor(private planService: PlanService) {}
 
   ngOnInit(): void {
     this.subs = this.planService.plans.subscribe((exs) => (this.plans = exs));
+    this.planService.getAll().subscribe((res) => console.log(res));
   }
 
   ngOnDestroy(): void {

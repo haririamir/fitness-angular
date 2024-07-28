@@ -8,6 +8,7 @@ import { PlanListComponent } from './plan-root/plan-list/plan-list.component';
 import { ExerciseService } from './services/exercise.service';
 import { PlanService } from './services/plan.service';
 import { PlanRootComponent } from './plan-root/plan-root.component';
+import { CustomColPipe } from '../custom-col.pipe';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { PlanRootComponent } from './plan-root/plan-root.component';
     PlanFormComponent,
     PlanListComponent,
     PlanRootComponent,
+    CustomColPipe,
   ],
   providers: [ExerciseService, PlanService],
   imports: [

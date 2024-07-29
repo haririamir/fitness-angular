@@ -9,6 +9,7 @@ import { ExerciseService } from './services/exercise.service';
 import { PlanService } from './services/plan.service';
 import { PlanRootComponent } from './plan-root/plan-root.component';
 import { CustomColPipe } from '../custom-col.pipe';
+import { WorkoutRootComponent } from './workout-root/workout-root.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { CustomColPipe } from '../custom-col.pipe';
     PlanFormComponent,
     PlanListComponent,
     PlanRootComponent,
+    WorkoutRootComponent,
     CustomColPipe,
   ],
   providers: [ExerciseService, PlanService],
@@ -30,6 +32,7 @@ import { CustomColPipe } from '../custom-col.pipe';
     PlanFormComponent,
     PlanListComponent,
     PlanRootComponent,
+    WorkoutRootComponent,
   ],
 })
 export class FeaturesModule {}

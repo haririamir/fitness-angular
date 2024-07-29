@@ -55,56 +55,11 @@
     </mat-card>
   </div>
   <div class="flex-1 w-100 position-relative example-table-container">
-    <table mat-table [dataSource]="exercises" class="mat-elevation-z8 w-100">
-      <!--- Note that these columns can be defined in any order.
-              The actual rendered columns are set as a property on the row definition" -->
-
-      <!-- Position Column -->
-      <ng-container matColumnDef="exercise_id">
-        <th mat-header-cell *matHeaderCellDef>ID.</th>
-        <td mat-cell *matCellDef="let element">{{ element.exercise_id }}</td>
-      </ng-container>
-
-      <!-- Name Column -->
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Name</th>
-        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-      </ng-container>
-
-      <!-- Weight Column -->
-      <ng-container matColumnDef="description">
-        <th mat-header-cell *matHeaderCellDef>Description</th>
-        <td mat-cell *matCellDef="let element">{{ element.description }}</td>
-      </ng-container>
-
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="category">
-        <th mat-header-cell *matHeaderCellDef>Category</th>
-        <td mat-cell *matCellDef="let element">{{ element.category }}</td>
-      </ng-container>
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef>Actions</th>
-        <td mat-cell *matCellDef="let element">
-          <button
-            (click)="onRowClicked(element)"
-            mat-icon-button
-            aria-label="Example icon button with a vertical three dot icon"
-            color="warn"
-          >
-            <mat-icon>delete</mat-icon>
-          </button>
-          <button
-            (click)="onEditClicked(element)"
-            mat-icon-button
-            aria-label="Example icon button with a vertical three dot icon"
-            color="primary"
-          >
-            <mat-icon>edit</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-      <tr @list2 mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
+    <component-table
+      [columns]="displayedColumns"
+      [data]="exercises"
+      (rowAction)="onRowAction($event)"
+    >
+    </component-table>
   </div>
 </div>

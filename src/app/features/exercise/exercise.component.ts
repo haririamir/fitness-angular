@@ -1,11 +1,3 @@
-import {
-  animate,
-  keyframes,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatTable } from '@angular/material/table';
@@ -17,41 +9,6 @@ import { ExerciseService } from '../services/exercise.service';
   selector: 'app-exercise',
   templateUrl: './exercise.component.html',
   styleUrls: ['./exercise.component.css'],
-  animations: [
-    trigger('list2', [
-      state(
-        'exit',
-        style({
-          opacity: 1,
-        })
-      ),
-      transition('void=>*', [
-        style({ opacity: 0 }),
-        animate(
-          '.5s',
-          keyframes([
-            style({ opacity: 0, offset: 0 }),
-            style({ opacity: 0.25, offset: 0.2 }),
-            style({ opacity: 0.5, offset: 0.3 }),
-            style({ opacity: 0.75, offset: 1 }),
-          ])
-        ),
-      ]),
-      transition('*=>void', [
-        style({ opacity: 1, backgroundColor: 'red' }),
-        animate(
-          '.5s',
-          keyframes([
-            style({ opacity: 1, offset: 0 }),
-            style({ opacity: 0.75, offset: 0.2 }),
-            style({ opacity: 0.5, offset: 0.3 }),
-            style({ opacity: 0.25, offset: 0.4 }),
-            style({ opacity: 0, offset: 1 }),
-          ])
-        ),
-      ]),
-    ]),
-  ],
 })
 export class ExerciseComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = [
@@ -59,7 +16,6 @@ export class ExerciseComponent implements OnInit, OnDestroy {
     'name',
     'description',
     'category',
-    'actions',
   ];
   myForm = {} as FormGroup;
 
@@ -143,5 +99,23 @@ export class ExerciseComponent implements OnInit, OnDestroy {
           this.myForm.reset();
         },
       });
+  }
+  onRowAction(event: { action: string; row: any }) {
+    console.log(`Action: ${event.action}, Row:`, event.row);
+    if (event.action === 'edit') {
+      this.editRow(event.row);
+    } else if (event.action === 'delete') {
+      this.deleteRow(event.row);
+    }
+  }
+
+  editRow(row: any) {
+    // Handle edit action
+    console.log('Edit row:', row);
+  }
+
+  deleteRow(row: any) {
+    // Handle delete action
+    console.log('Delete row:', row);
   }
 }

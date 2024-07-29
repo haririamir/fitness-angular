@@ -10,6 +10,7 @@ import { PlanService } from './services/plan.service';
 import { PlanRootComponent } from './plan-root/plan-root.component';
 import { CustomColPipe } from '../custom-col.pipe';
 import { WorkoutRootComponent } from './workout-root/workout-root.component';
+import { TableComponent } from '../components/table/table.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { WorkoutRootComponent } from './workout-root/workout-root.component';
     PlanListComponent,
     PlanRootComponent,
     WorkoutRootComponent,
+    TableComponent,
     CustomColPipe,
   ],
   providers: [ExerciseService, PlanService],

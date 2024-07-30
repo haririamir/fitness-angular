@@ -1,9 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { ExerciseService } from '../../services/exercise.service';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { PlanService } from '../../services/plan.service';
 import { IExersice } from 'src/app/types/exercise/exersice.model';
+import { ExerciseService } from '../../services/exercise.service';
+import { PlanService } from '../../services/plan.service';
 
 @Component({
   selector: 'app-plan-form',

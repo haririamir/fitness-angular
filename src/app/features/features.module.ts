@@ -13,6 +13,9 @@ import { WorkoutRootComponent } from './workout-root/workout-root.component';
 import { TableComponent } from '../components/table/table.component';
 import { WorkoutListComponent } from './workout-root/workout-list/workout-list.component';
 import { WorkoutFormComponent } from './workout-root/workout-form/workout-form.component';
+import { WorkoutDetailsRootComponent } from './workout-details-root/workout-details-root.component';
+import { WorkoutDetailsListComponent } from './workout-details-root/workout-details-list/workout-details-list.component';
+import { WorkoutDetailsFormComponent } from './workout-details-root/workout-details-form/workout-details-form.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +28,9 @@ import { WorkoutFormComponent } from './workout-root/workout-form/workout-form.c
     WorkoutFormComponent,
     TableComponent,
     CustomColPipe,
+    WorkoutDetailsRootComponent,
+    WorkoutDetailsListComponent,
+    WorkoutDetailsFormComponent,
   ],
   providers: [ExerciseService, PlanService],
   imports: [

@@ -17,15 +17,12 @@ export class WorkoutFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.myForm = this.fb.group({
-      exercise_id: '',
+      workout_id: '',
       name: '',
       description: '',
-      category: '',
     });
   }
   handleSubmit() {
-    console.log(this.myForm);
-
     if (this.isEdit) {
       this.isEdit = true;
       this.workoutService
@@ -55,7 +52,10 @@ export class WorkoutFormComponent implements OnInit {
       })
       .subscribe({
         next: (res) => {
-          // this.exercises = [{ ...res }, ...this.exercises];
+          this.workoutService.workouts.next([
+            ...this.workoutService.workouts.value,
+            res,
+          ]);
           this.myForm.reset();
         },
       });

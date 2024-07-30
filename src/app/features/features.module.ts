@@ -11,6 +11,8 @@ import { PlanRootComponent } from './plan-root/plan-root.component';
 import { CustomColPipe } from '../custom-col.pipe';
 import { WorkoutRootComponent } from './workout-root/workout-root.component';
 import { TableComponent } from '../components/table/table.component';
+import { WorkoutListComponent } from './workout-root/workout-list/workout-list.component';
+import { WorkoutFormComponent } from './workout-root/workout-form/workout-form.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { TableComponent } from '../components/table/table.component';
     PlanListComponent,
     PlanRootComponent,
     WorkoutRootComponent,
+    WorkoutListComponent,
+    WorkoutFormComponent,
     TableComponent,
     CustomColPipe,
   ],

@@ -1,1 +1,6 @@
-<p>workout-list works!</p>
+<component-table
+[columns]="displayedColumns"
+[data]="workouts"
+(rowAction)="onRowAction($event)"
+>
+</component-table>

@@ -26,6 +26,7 @@ import { MaterialExampleModule } from './material.module';
     FeaturesModule,
     HttpClientModule,
     ReactiveFormsModule,
+    
   ],
   providers: [AuthService, ExerciseService],
   bootstrap: [AppComponent],

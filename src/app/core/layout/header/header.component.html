@@ -13,6 +13,10 @@
     matTooltipPosition="below">
     <mat-icon>person</mat-icon>
   </button>
+  <button (click)="createExercise()" *ngIf="isAuth" mat-icon-button class="example-icon" #tooltip="matTooltip" matTooltip="Training"
+    matTooltipPosition="below">
+    <mat-icon>fitness_center</mat-icon>
+  </button>
 
 
   <button *ngIf="!isAuth" mat-icon-button class="example-icon" #tooltip="matTooltip" matTooltip="Login"

@@ -47,7 +47,7 @@ export class ExerciseComponent implements OnInit, OnDestroy {
     this.subs.unsubscribe();
   }
 
-  onRowClicked(element: IExersice) {
+  onDelete(element: IExersice) {
     this.exerciseService.delete(element.exercise_id).subscribe({
       next: (res) => {
         this.exercises = this.exercises.filter(
@@ -63,8 +63,6 @@ export class ExerciseComponent implements OnInit, OnDestroy {
   }
 
   handleSubmit() {
-    console.log(this.myForm);
-
     if (this.isEdit) {
       this.isEdit = true;
       this.exerciseService
@@ -100,22 +98,17 @@ export class ExerciseComponent implements OnInit, OnDestroy {
         },
       });
   }
+
   onRowAction(event: { action: string; row: any }) {
-    console.log(`Action: ${event.action}, Row:`, event.row);
-    if (event.action === 'edit') {
-      this.editRow(event.row);
-    } else if (event.action === 'delete') {
-      this.deleteRow(event.row);
+    switch (event.action) {
+      case 'edit':
+        this.onEditClicked(event.row);
+        break;
+      case 'delete':
+        this.onDelete(event.row);
+        break;
+      default:
+        console.log(event.row);
     }
-  }
-
-  editRow(row: any) {
-    // Handle edit action
-    console.log('Edit row:', row);
-  }
-
-  deleteRow(row: any) {
-    // Handle delete action
-    console.log('Delete row:', row);
   }
 }

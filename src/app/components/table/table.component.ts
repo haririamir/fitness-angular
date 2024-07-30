@@ -65,7 +65,7 @@ export class TableComponent implements OnInit {
   @ViewChild(MatSort) sort = '' as unknown as MatSort;
 
   ngOnInit() {
-    this.displayedColumns = this.columns;
+    this.displayedColumns = [...this.columns, 'actions'];
     this.dataSource = new MatTableDataSource(this.data);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;

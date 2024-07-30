@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { WorkoutService } from '../../services/workout.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
@@ -7,7 +7,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   templateUrl: './workout-form.component.html',
   styleUrls: ['./workout-form.component.css'],
 })
-export class WorkoutFormComponent implements OnInit {
+export class WorkoutFormComponent implements OnInit, OnDestroy {
   myForm = {} as FormGroup;
   isEdit = false as boolean;
   constructor(
@@ -22,6 +22,9 @@ export class WorkoutFormComponent implements OnInit {
       description: '',
     });
   }
+
+  ngOnDestroy(): void {}
+
   handleSubmit() {
     if (this.isEdit) {
       this.isEdit = true;
@@ -52,8 +55,8 @@ export class WorkoutFormComponent implements OnInit {
       })
       .subscribe({
         next: (res) => {
-          this.workoutService.workouts.next([
-            ...this.workoutService.workouts.value,
+          this.workoutService.changeData([
+            ...this.workoutService.getData(),
             res,
           ]);
           this.myForm.reset();

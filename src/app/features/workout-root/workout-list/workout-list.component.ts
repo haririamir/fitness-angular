@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { WorkoutService } from '../../services/workout.service';
-import { IWorkout } from 'src/app/types/exercise/workout.model';
 import { MatTable } from '@angular/material/table';
+import { IWorkout } from 'src/app/types/exercise/workout.model';
+import { WorkoutService } from '../../services/workout.service';
 
 @Component({
   selector: 'app-workout-list',
@@ -17,20 +17,19 @@ export class WorkoutListComponent implements OnInit, OnDestroy {
   constructor(private workoutService: WorkoutService) {}
 
   ngOnInit(): void {
-    this.workoutService.workouts.subscribe((res) => (this.workouts = res));
+    this.workoutService.fetching();
+    this.workoutService.currentData.subscribe((data) => (this.workouts = data));
   }
 
-  ngOnDestroy(): void {
-    this.workoutService.workouts.unsubscribe();
-  }
+  ngOnDestroy(): void {}
 
-  onRowAction(event: { action: string; row: any }) {
+  onRowAction(event: { action: string; row: IWorkout }) {
     switch (event.action) {
       case 'edit':
         console.log(event.row);
         break;
       case 'delete':
-        console.log(event.row);
+        // this.workoutService.deleteWorkout(event.row.workout_id);
         break;
       default:
         console.log(event.row);

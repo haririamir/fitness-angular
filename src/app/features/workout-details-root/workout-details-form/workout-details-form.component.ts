@@ -18,7 +18,9 @@ export class WorkoutDetailsFormComponent implements OnInit {
     private fb: FormBuilder,
     private exerciseService: ExerciseService,
     private workoutService: WorkoutService
-  ) {}
+  ) {
+
+  }
 
   ngOnInit(): void {
     this.myForm = this.fb.group({
@@ -29,7 +31,8 @@ export class WorkoutDetailsFormComponent implements OnInit {
       workout_id: '',
     });
     this.exerciseService.getAll().subscribe((res) => (this.exercises = res));
-    this.workouts = this.workoutService.getData();
+    this.workoutService.currentData.subscribe((data) => (this.workouts = data));
+
   }
 
   handleSubmit() {}

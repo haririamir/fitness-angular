@@ -2,10 +2,7 @@ import { Prisma } from '@prisma/client';
 import { Request, Response } from 'express';
 import prisma from '../prismaClient';
 
-export const getAll = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
+export const getAll = async (req: Request, res: Response): Promise<void> => {
   const workout = await prisma.workout.findMany();
   res.json(workout);
 };
@@ -53,10 +50,7 @@ export const update = async (req: Request, res: Response): Promise<void> => {
   res.json(update);
 };
 
-export const remove = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
+export const remove = async (req: Request, res: Response): Promise<void> => {
   try {
     const id = parseInt(req.params.id);
     await prisma.workout.delete({
@@ -71,4 +65,26 @@ export const remove = async (
     }
     res.status(500).send({ message: 'Server error', error });
   }
+};
+export const addDeatilWorkout = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  // const { error } = exerciseSchema.validate(req.body);
+
+  // if (error) {
+  //   res.status(400).json({ error: error.details[0].message });
+  //   return;
+  // }
+
+  let workoutDetail: Prisma.WorkoutDetailCreateInput;
+  workoutDetail = {
+    workoutPlan: req.body.plan,
+    base_weight: req.body.base_weight,
+    sets: req.body.sets,
+    reps: req.body.reps,
+    exercise: req.body.exercise,
+  };
+  const create = await prisma.workoutDetail.create({ data: workoutDetail });
+  res.json(create);
 };

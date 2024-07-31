@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import {
+  addDeatilWorkout,
   create,
   getAll,
   remove,
@@ -12,5 +13,6 @@ router.get('/workouts', getAll);
 router.post('/workouts', create);
 router.delete('/workouts/:id', remove);
 router.patch('/workouts/:id', update);
+router.patch('/workouts/details', addDeatilWorkout);
 
 export default router;

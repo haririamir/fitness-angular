@@ -35,5 +35,7 @@ export class WorkoutDetailsFormComponent implements OnInit {
 
   }
 
-  handleSubmit() {}
+  handleSubmit() {
+    
+  }
 }

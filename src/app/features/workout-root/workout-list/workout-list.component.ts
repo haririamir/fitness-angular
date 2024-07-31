@@ -23,13 +23,23 @@ export class WorkoutListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {}
 
+  async handleDelete(row: IWorkout) {
+    await this.workoutService
+      .delete(row.workout_id)
+      .subscribe((e) =>
+        this.workoutService.changeData(
+          this.workouts.filter((i) => i.workout_id !== row.workout_id)
+        )
+      );
+  }
+
   onRowAction(event: { action: string; row: IWorkout }) {
     switch (event.action) {
       case 'edit':
-        console.log(event.row);
+        // this.workoutService.deleteItem(event.row.workout_id);
         break;
       case 'delete':
-        // this.workoutService.deleteWorkout(event.row.workout_id);
+        this.handleDelete(event.row);
         break;
       default:
         console.log(event.row);

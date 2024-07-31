@@ -30,10 +30,10 @@
             placeholder="Base Weight"
           />
         </mat-form-field>
-        
+
         <mat-form-field appearance="fill">
           <mat-label>Workout:</mat-label>
-          <mat-select ngModel name="exercise">
+          <mat-select formControlName="workout_id">
             <mat-option *ngFor="let ex of workouts" [value]="ex">{{
               ex.name
             }}</mat-option>
@@ -41,7 +41,7 @@
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Exercise</mat-label>
-          <mat-select ngModel name="exercise">
+          <mat-select formControlName="exercise_id" name="exercise">
             <mat-option *ngFor="let ex of exercises" [value]="ex">{{
               ex.name
             }}</mat-option>

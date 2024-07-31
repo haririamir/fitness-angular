@@ -21,6 +21,13 @@ export class WorkoutDetailsFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.myForm = this.fb.group({
+      exercise_id: '',
+      sets: '',
+      reps: '',
+      base_weight: '',
+      workout_id: '',
+    });
     this.exerciseService.getAll().subscribe((res) => (this.exercises = res));
     this.workouts = this.workoutService.getData();
   }

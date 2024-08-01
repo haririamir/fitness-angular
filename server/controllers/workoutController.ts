@@ -79,12 +79,32 @@ export const addDeatilWorkout = async (
 
   let workoutDetail: Prisma.WorkoutDetailCreateInput;
   workoutDetail = {
-    workoutPlan: req.body.plan,
+    workoutPlan: { connect: { plan_id: req.body.workout.workout_id } },
     base_weight: req.body.base_weight,
     sets: req.body.sets,
     reps: req.body.reps,
-    exercise: req.body.exercise,
+    exercise: { connect: { exercise_id: req.body.exercise.exercise_id } },
   };
+
   const create = await prisma.workoutDetail.create({ data: workoutDetail });
   res.json(create);
+};
+export const getDeatilWorkout = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  // const { error } = exerciseSchema.validate(req.body);
+
+  // if (error) {
+  //   res.status(400).json({ error: error.details[0].message });
+  //   return;
+  // }
+
+  const all = await prisma.workoutDetail.findMany({
+    include: {
+      workoutPlan: true,
+      exercise: true,
+    },
+  });
+  res.json(all);
 };

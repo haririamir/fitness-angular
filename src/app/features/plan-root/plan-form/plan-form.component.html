@@ -1,18 +1,40 @@
 <form (ngSubmit)="handleSubmit(f)" #f="ngForm">
   <div class="flex flex-col gap-3 mt-3">
     <mat-form-field appearance="fill" class="w-100" autocomplete="password">
-      <mat-label>Name:</mat-label>
-      <input ngModel name="name" matInput placeholder="Name" />
+      <mat-label>Start Date:</mat-label>
+      <input
+        ngModel
+        name="start_date"
+        type="date"
+        matInput
+        placeholder="Start Date"
+      />
     </mat-form-field>
     <mat-form-field appearance="fill" class="w-100" autocomplete="password">
-      <mat-label>Set:</mat-label>
-      <input ngModel name="set" matInput placeholder="Set'S" />
+      <mat-label>End Date:</mat-label>
+      <input
+        ngModel
+        name="end_date"
+        type="date"
+        matInput
+        placeholder="End Date"
+      />
     </mat-form-field>
     <mat-form-field appearance="fill">
-      <mat-label>Exercise</mat-label>
-      <mat-select ngModel name="exercise">
-        <mat-option *ngFor="let ex of exercises" [value]="ex">{{
-          ex.name
+      <mat-label>Workout</mat-label>
+      <mat-select ngModel name="workout_id">
+        <mat-option
+          *ngFor="let workout of workouts"
+          [value]="workout.workout_id"
+          >{{ workout.name }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>User</mat-label>
+      <mat-select ngModel name="user_id">
+        <mat-option *ngFor="let user of users" [value]="user.user_id">{{
+          user.name
         }}</mat-option>
       </mat-select>
     </mat-form-field>

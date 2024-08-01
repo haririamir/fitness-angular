@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { IExersice } from 'src/app/types/exercise/exersice.model';
-import { ExerciseService } from '../../services/exercise.service';
+import { User } from 'src/app/types/auth/user.model';
+import { IWorkout } from 'src/app/types/exercise/workout.model';
 import { PlanService } from '../../services/plan.service';
+import { UserService } from '../../services/users.service';
+import { WorkoutService } from '../../services/workout.service';
 
 @Component({
   selector: 'app-plan-form',
@@ -10,16 +12,23 @@ import { PlanService } from '../../services/plan.service';
   styleUrls: ['./plan-form.component.css'],
 })
 export class PlanFormComponent implements OnInit {
-  exercises = [] as IExersice[];
+  workouts = [] as IWorkout[];
+  users = [] as User[];
 
   constructor(
-    private exerciseService: ExerciseService,
+    private workoutServive: WorkoutService,
+    private userSerive: UserService,
     private planService: PlanService
   ) {}
 
   ngOnInit(): void {
-    this.exerciseService.getAll().subscribe((res) => (this.exercises = res));
+    this.workoutServive.getAll().subscribe((res) => (this.workouts = res));
+    this.userSerive.getAll().subscribe((res) => (this.users = res));
   }
 
-  handleSubmit(formValue: NgForm) {}
+  handleSubmit(formValue: NgForm) {
+    this.planService
+      .create(formValue.value)
+      .subscribe((res) => console.log(res));
+  }
 }

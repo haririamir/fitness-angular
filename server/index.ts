@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { exerciseRoute, planRoute, workoutRoute } from './routes';
+import { exerciseRoute, planRoute, userRoute, workoutRoute } from './routes';
 
 const app = express();
 
@@ -9,6 +9,7 @@ app.use(cors());
 app.use('/api', exerciseRoute);
 app.use('/api', planRoute);
 app.use('/api', workoutRoute);
+app.use('/api', userRoute);
 app.use(
   (
     err: any,

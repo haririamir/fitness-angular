@@ -1,19 +1,19 @@
 import { Router } from 'express';
 import {
   addDeatilWorkout,
-  create,
-  getAll,
+  createWorkout,
+  getAllWorkout,
   getDeatilWorkout,
-  remove,
-  update,
+  removeWorkout,
+  updateWorkout,
 } from '../controllers/workoutController';
 
 const router = Router();
 
-router.get('/workouts', getAll);
-router.post('/workouts', create);
-router.delete('/workouts/:id', remove);
-router.patch('/workouts/:id', update);
+router.get('/workouts', getAllWorkout);
+router.post('/workouts', createWorkout);
+router.delete('/workouts/:id', removeWorkout);
+router.patch('/workouts/:id', updateWorkout);
 router.post('/workouts/details', addDeatilWorkout);
 router.get('/workouts/details', getDeatilWorkout);
 

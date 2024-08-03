@@ -1,44 +1,41 @@
 import { Prisma } from '@prisma/client';
 import { Request, Response } from 'express';
-import { exerciseSchema } from '../middleware/validationMiddleware';
+import { userSchema } from '../middleware/validationMiddleware';
 import prisma from '../prismaClient';
 
-export const getUsers = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
+export const getUsers = async (req: Request, res: Response): Promise<void> => {
   const users = await prisma.user.findMany();
   res.json(users);
 };
 
-export const createExercise = async (
+export const createUser = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  const { error } = exerciseSchema.validate(req.body);
+  const { error } = userSchema.validate(req.body);
 
   if (error) {
     res.status(400).json({ error: error.details[0].message });
     return;
   }
 
-  let exercise: Prisma.ExerciseCreateInput;
-  exercise = {
+  let user: Prisma.UserCreateInput;
+  user = {
     name: req.body.name,
-    description: req.body.description,
-    category: req.body.category,
+    email: req.body.email,
+    password: req.body.password,
   };
-  const create = await prisma.exercise.create({ data: exercise });
+  const create = await prisma.user.create({ data: user });
   res.json(create);
 };
 
-export const updateExercise = async (
+export const updateUser = async (
   req: Request,
   res: Response
 ): Promise<void> => {
   const id = parseInt(req.params.id);
 
-  const { error } = exerciseSchema.validate(req.body);
+  const { error } = userSchema.validate(req.body);
 
   if (error) {
     res.status(400).json({ error: error.details[0].message });
@@ -48,29 +45,29 @@ export const updateExercise = async (
     res.status(404).json({ error: 'Not found' });
     return;
   }
-  const exercise = {
+  const user = {
     name: req.body.name,
-    description: req.body.description,
-    category: req.body.category,
+    email: req.body.email,
+    password: req.body.password,
   };
-  const updateUser = await prisma.exercise.update({
+  const update = await prisma.user.update({
     where: {
-      exercise_id: id,
+      user_id: id,
     },
-    data: exercise,
+    data: user,
   });
-  res.json(updateUser);
+  res.json(update);
 };
 
-export const deleteExercise = async (
+export const deleteUser = async (
   req: Request,
   res: Response
 ): Promise<void> => {
   try {
     const id = parseInt(req.params.id);
-    await prisma.exercise.delete({
+    await prisma.user.delete({
       where: {
-        exercise_id: id,
+        user_id: id,
       },
     });
     res.send({ message: 'Item deleted successfully' });

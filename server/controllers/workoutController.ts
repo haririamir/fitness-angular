@@ -1,19 +1,29 @@
 import { Prisma } from '@prisma/client';
 import { Request, Response } from 'express';
 import prisma from '../prismaClient';
+import { workoutSchema } from '../middleware/validationMiddleware';
 
-export const getAll = async (req: Request, res: Response): Promise<void> => {
+const validateSchema = (body: any) => {
+  return workoutSchema.validate(body);
+};
+export const getAllWorkout = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   const workout = await prisma.workout.findMany();
   res.json(workout);
 };
 
-export const create = async (req: Request, res: Response): Promise<void> => {
-  // const { error } = exerciseSchema.validate(req.body);
+export const createWorkout = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  const { error } = validateSchema(req.body);
 
-  // if (error) {
-  //   res.status(400).json({ error: error.details[0].message });
-  //   return;
-  // }
+  if (error) {
+    res.status(400).json({ error: error.details[0].message });
+    return;
+  }
 
   let workout: Prisma.WorkoutCreateInput;
   workout = {
@@ -24,15 +34,18 @@ export const create = async (req: Request, res: Response): Promise<void> => {
   res.json(create);
 };
 
-export const update = async (req: Request, res: Response): Promise<void> => {
+export const updateWorkout = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   const id = parseInt(req.params.id);
 
-  // const { error } = exerciseSchema.validate(req.body);
+  const { error } = validateSchema(req.body);
 
-  // if (error) {
-  //   res.status(400).json({ error: error.details[0].message });
-  //   return;
-  // }
+  if (error) {
+    res.status(400).json({ error: error.details[0].message });
+    return;
+  }
   if (!id) {
     res.status(404).json({ error: 'Not found' });
     return;
@@ -50,7 +63,10 @@ export const update = async (req: Request, res: Response): Promise<void> => {
   res.json(update);
 };
 
-export const remove = async (req: Request, res: Response): Promise<void> => {
+export const removeWorkout = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     const id = parseInt(req.params.id);
     await prisma.workout.delete({
@@ -66,6 +82,7 @@ export const remove = async (req: Request, res: Response): Promise<void> => {
     res.status(500).send({ message: 'Server error', error });
   }
 };
+
 export const addDeatilWorkout = async (
   req: Request,
   res: Response
@@ -89,6 +106,7 @@ export const addDeatilWorkout = async (
   const create = await prisma.workoutDetail.create({ data: workoutDetail });
   res.json(create);
 };
+
 export const getDeatilWorkout = async (
   req: Request,
   res: Response

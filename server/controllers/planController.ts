@@ -3,6 +3,10 @@ import { Request, Response } from 'express';
 import { planSchema } from '../middleware/validationMiddleware';
 import prisma from '../prismaClient';
 
+const validateSchema = (body: any) => {
+  return planSchema.validate(body);
+};
+
 export const getPlans = async (req: Request, res: Response): Promise<void> => {
   const plans = await prisma.workoutPlan.findMany({
     select: {
@@ -48,13 +52,13 @@ export const createPlan = async (
   res.json(create);
 };
 
-export const updateExercise = async (
+export const updatePlan = async (
   req: Request,
   res: Response
 ): Promise<void> => {
   const id = parseInt(req.params.id);
 
-  const { error } = planSchema.validate(req.body);
+  const { error } = validateSchema(req.body);
 
   if (error) {
     res.status(400).json({ error: error.details[0].message });
@@ -64,29 +68,31 @@ export const updateExercise = async (
     res.status(404).json({ error: 'Not found' });
     return;
   }
-  const exercise = {
-    name: req.body.name,
-    description: req.body.description,
-    category: req.body.category,
+
+  const plan = {
+    user: { connect: { user_id: req.body.user_id } },
+    workout: { connect: { workout_id: req.body.workout_id } },
+    start_date: req.body.start_date,
+    end_date: req.body.end_date,
   };
-  const updateUser = await prisma.exercise.update({
+  const update = await prisma.workoutPlan.update({
     where: {
-      exercise_id: id,
+      plan_id: id,
     },
-    data: exercise,
+    data: plan,
   });
-  res.json(updateUser);
+  res.json(update);
 };
 
-export const deleteExercise = async (
+export const deletePlan = async (
   req: Request,
   res: Response
 ): Promise<void> => {
   try {
     const id = parseInt(req.params.id);
-    await prisma.exercise.delete({
+    await prisma.workoutPlan.delete({
       where: {
-        exercise_id: id,
+        plan_id: id,
       },
     });
     res.send({ message: 'Item deleted successfully' });

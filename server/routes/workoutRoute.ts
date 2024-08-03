@@ -5,6 +5,7 @@ import {
   getAllWorkout,
   getDeatilWorkout,
   removeWorkout,
+  removeWorkoutDetail,
   updateWorkout,
 } from '../controllers/workoutController';
 
@@ -16,5 +17,6 @@ router.delete('/workouts/:id', removeWorkout);
 router.patch('/workouts/:id', updateWorkout);
 router.post('/workouts/details', addDeatilWorkout);
 router.get('/workouts/details', getDeatilWorkout);
+router.delete('/workouts/details/:id', removeWorkoutDetail);
 
 export default router;

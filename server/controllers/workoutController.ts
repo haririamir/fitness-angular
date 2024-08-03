@@ -82,6 +82,25 @@ export const removeWorkout = async (
     res.status(500).send({ message: 'Server error', error });
   }
 };
+export const removeWorkoutDetail = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const id = parseInt(req.params.id);
+    await prisma.workoutDetail.delete({
+      where: {
+        detail_id: id,
+      },
+    });
+    res.send({ message: 'Item deleted successfully' });
+  } catch (error: any) {
+    if (error.code === 'P2025') {
+      res.status(404).send({ message: 'Item not found' });
+    }
+    res.status(500).send({ message: 'Server error', error });
+  }
+};
 
 export const addDeatilWorkout = async (
   req: Request,

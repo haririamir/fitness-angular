@@ -8,6 +8,7 @@ export interface IWorkout {
 }
 
 export interface IWorkoutDetail {
+  detail_id: number;
   sets: number;
   reps: number;
   bsae_weight: number;

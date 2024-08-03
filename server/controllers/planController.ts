@@ -19,6 +19,7 @@ export const getPlans = async (req: Request, res: Response): Promise<void> => {
       end_date: true,
       workoutDetails: {
         select: {
+          detail_id: true,
           exercise: true,
           sets: true,
           reps: true,

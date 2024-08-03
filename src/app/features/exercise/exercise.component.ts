@@ -84,6 +84,7 @@ export class ExerciseComponent implements OnInit, OnDestroy {
             this.exercises[idx] = res;
             this.myForm.reset();
             this.updateTable();
+            this.isEdit = false;
           },
         });
       return;
@@ -99,6 +100,7 @@ export class ExerciseComponent implements OnInit, OnDestroy {
         next: (res) => {
           this.exercises = [{ ...res }, ...this.exercises];
           this.myForm.reset();
+          this.updateTable();
         },
       });
   }

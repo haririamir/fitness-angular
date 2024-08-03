@@ -5,6 +5,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class CustomColPipe implements PipeTransform {
   transform(value: { name: any }): unknown {
-    return value?.name;
+    return value?.name || value;
   }
 }

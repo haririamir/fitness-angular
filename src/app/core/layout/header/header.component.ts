@@ -18,10 +18,12 @@ export class HeaderComponent implements OnInit {
   createTrain() {
     this.router.navigate(['/exercises']);
   }
+
   createPlan() {
     this.router.navigate(['/plans']);
   }
-  createExercise() {
+
+  createWorkouts() {
     this.router.navigate(['/workouts']);
   }
   ngOnInit(): void {

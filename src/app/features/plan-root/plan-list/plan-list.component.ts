@@ -27,7 +27,8 @@ import {
 })
 export class PlanListComponent implements OnInit {
   subs: Subscription = new Subscription();
-  displayedColumns: string[] = ['plan_id', 'user', 'workout', 'workoutDetails'];
+  displayedColumns: string[] = ['plan_id', 'user', 'workout', 'actions'];
+  labels: string[] = ['PlanID', 'User', 'Workout', 'Actions'];
   plans = [] as any[];
   expandedElement = {};
 
@@ -40,4 +41,8 @@ export class PlanListComponent implements OnInit {
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }
+  handleDelete(row: IPlan) {
+    console.log(row);
+  }
+  handleEdit(row: IPlan) {}
 }

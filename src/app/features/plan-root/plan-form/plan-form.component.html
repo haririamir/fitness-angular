@@ -1,25 +1,21 @@
 <form (ngSubmit)="handleSubmit(f)" #f="ngForm">
   <div class="flex flex-col gap-3 mt-3">
-    <mat-form-field appearance="fill" class="w-100" autocomplete="password">
-      <mat-label>Start Date:</mat-label>
-      <input
-        ngModel
-        name="start_date"
-        type="date"
-        matInput
-        placeholder="Start Date"
-      />
+    <mat-form-field appearance="fill">
+      <mat-label>Start Date</mat-label>
+      <input ngModel name="start_date" matInput [matDatepicker]="picker" />
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
-    <mat-form-field appearance="fill" class="w-100" autocomplete="password">
-      <mat-label>End Date:</mat-label>
-      <input
-        ngModel
-        name="end_date"
-        type="date"
-        matInput
-        placeholder="End Date"
-      />
+
+    <mat-form-field appearance="fill">
+      <mat-label>End Date</mat-label>
+      <input ngModel name="end_date" matInput [matDatepicker]="picker2" />
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>
+
     <mat-form-field appearance="fill">
       <mat-label>Workout</mat-label>
       <mat-select ngModel name="workout_id">

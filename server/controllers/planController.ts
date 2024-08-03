@@ -6,6 +6,7 @@ import prisma from '../prismaClient';
 export const getPlans = async (req: Request, res: Response): Promise<void> => {
   const plans = await prisma.workoutPlan.findMany({
     select: {
+      plan_id: true,
       workout_id: true,
       user_id: true,
       user: true,

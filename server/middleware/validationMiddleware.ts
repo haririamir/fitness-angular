@@ -25,7 +25,7 @@ export const planSchema = Joi.object({
   end_date: Joi.string(),
 });
 export const workoutSchema = Joi.object({
-  workout_id: Joi.number().required(),
+  workout_id: Joi.number(),
   name: Joi.string().required(),
   description: Joi.string(),
 });

@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatTable } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { IExersice } from 'src/app/types/exercise/exersice.model';
 import { ExerciseService } from '../services/exercise.service';
+import { TableComponent } from 'src/app/components/table/table.component';
 
 @Component({
   selector: 'app-exercise',
@@ -18,18 +18,21 @@ export class ExerciseComponent implements OnInit, OnDestroy {
     'category',
   ];
   myForm = {} as FormGroup;
+  exercises = [] as IExersice[];
+  exercise = {} as IExersice;
+  subs: Subscription = new Subscription();
+  isEdit = false as boolean;
 
-  @ViewChild(MatTable) table = {} as MatTable<IExersice>;
+  @ViewChild(TableComponent) table!: TableComponent;
 
   constructor(
     private exerciseService: ExerciseService,
     private fb: FormBuilder
   ) {}
 
-  exercises = [] as IExersice[];
-  exercise = {} as IExersice;
-  subs: Subscription = new Subscription();
-  isEdit = false as boolean;
+  updateTable() {
+    this.table.updateTable();
+  }
 
   ngOnInit(): void {
     this.myForm = this.fb.group({
@@ -53,6 +56,7 @@ export class ExerciseComponent implements OnInit, OnDestroy {
         this.exercises = this.exercises.filter(
           (i) => i.exercise_id !== element.exercise_id
         );
+        this.updateTable();
       },
     });
   }
@@ -78,8 +82,8 @@ export class ExerciseComponent implements OnInit, OnDestroy {
             );
 
             this.exercises[idx] = res;
-            this.table.renderRows();
             this.myForm.reset();
+            this.updateTable();
           },
         });
       return;

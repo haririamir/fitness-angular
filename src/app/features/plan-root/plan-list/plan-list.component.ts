@@ -41,6 +41,7 @@ export class PlanListComponent implements OnInit {
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }
+
   handleDelete(row: IPlan) {
     console.log(row);
   }

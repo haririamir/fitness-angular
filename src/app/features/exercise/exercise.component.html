@@ -57,6 +57,7 @@
   <div class="flex-1 w-100 position-relative example-table-container">
     <component-table
       [columns]="displayedColumns"
+      [headerLabel]="labels"
       [data]="exercises"
       (rowAction)="onRowAction($event)"
     >

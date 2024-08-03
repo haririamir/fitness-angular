@@ -7,8 +7,8 @@ import {
   trigger,
 } from '@angular/animations';
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -61,12 +61,13 @@ import { MatTable, MatTableDataSource } from '@angular/material/table';
     ]),
   ],
 })
-export class TableComponent implements OnInit {
-  constructor(private cd: ChangeDetectorRef) {}
+export class TableComponent implements OnInit, AfterViewInit {
+  constructor() {}
 
   @Input() columns: string[] = [];
   @Input() data: any[] = [];
-
+  @Input() headerLabel: string[] = [];
+  
   @Output() rowAction = new EventEmitter<{
     action: string;
     row: any;
@@ -85,6 +86,10 @@ export class TableComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.data);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
   }
 
   ngOnChanges() {

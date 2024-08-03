@@ -14,9 +14,10 @@ export class ExerciseComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = [
     'exercise_id',
     'name',
-    'description',
     'category',
+    'description',
   ];
+  labels: string[] = ['Exercise ID', 'Name', 'Category', 'Description'];
   myForm = {} as FormGroup;
   exercises = [] as IExersice[];
   exercise = {} as IExersice;

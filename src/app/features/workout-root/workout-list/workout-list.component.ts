@@ -13,6 +13,7 @@ export class WorkoutListComponent implements OnInit, OnDestroy {
   workouts = [] as IWorkout[];
 
   displayedColumns: string[] = ['name', 'description'];
+  labels: string[] = ['Name', 'Description'];
 
   constructor(private workoutService: WorkoutService) {}
 

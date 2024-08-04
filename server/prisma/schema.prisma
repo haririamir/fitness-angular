@@ -25,7 +25,8 @@ model Exercise {
   exercise_id    Int             @id @default(autoincrement())
   name           String
   description    String?
-  category       String?
+  category_id    Int?
+  category       Category?       @relation(fields: [category_id], references: [category_id])
   workoutDetails WorkoutDetail[]
 }
 
@@ -68,4 +69,9 @@ model WeeklyProgress {
   weight      Float
 
   workoutDetail WorkoutDetail @relation(fields: [detail_id], references: [detail_id])
+}
+model Category {
+  category_id Int        @id @default(autoincrement())
+  name        String
+  exercises   Exercise[]
 }

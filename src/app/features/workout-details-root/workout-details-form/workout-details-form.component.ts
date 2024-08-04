@@ -5,6 +5,8 @@ import { IExersice } from 'src/app/types/exercise/exersice.model';
 import { WorkoutService } from '../../services/workout.service';
 import { IWorkout } from 'src/app/types/exercise/workout.model';
 import { WorkoutDetailService } from '../../services/workout-detail.service';
+import { PlanService } from '../../services/plan.service';
+import { IPlan } from 'src/app/types/exercise/plan.model';
 
 @Component({
   selector: 'app-workout-details-form',
@@ -14,26 +16,24 @@ import { WorkoutDetailService } from '../../services/workout-detail.service';
 export class WorkoutDetailsFormComponent implements OnInit {
   myForm = {} as FormGroup;
   exercises = [] as IExersice[];
-  workouts = [] as IWorkout[];
+  plans = [] as IPlan[];
   constructor(
     private fb: FormBuilder,
     private exerciseService: ExerciseService,
-    private workoutService: WorkoutService,
+    private planService: PlanService,
     private workoutDetailService: WorkoutDetailService
   ) {}
 
   ngOnInit(): void {
     this.myForm = this.fb.group({
-      exercise_id: '',
-      sets: 0,
-      reps: 0,
-      base_weight: 0,
-      workout_id: '',
-      workout: {},
+      sets: null,
+      reps: null,
+      base_weight: null,
+      plan: {},
       exercise: {},
     });
     this.exerciseService.getAll().subscribe((res) => (this.exercises = res));
-    this.workoutService.currentData.subscribe((data) => (this.workouts = data));
+    this.planService.getAll().subscribe((data) => (this.plans = data));
   }
 
   handleSubmit() {

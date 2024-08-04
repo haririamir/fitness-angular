@@ -6,6 +6,7 @@ import { workoutSchema } from '../middleware/validationMiddleware';
 const validateSchema = (body: any) => {
   return workoutSchema.validate(body);
 };
+
 export const getAllWorkout = async (
   req: Request,
   res: Response
@@ -82,6 +83,7 @@ export const removeWorkout = async (
     res.status(500).send({ message: 'Server error', error });
   }
 };
+
 export const removeWorkoutDetail = async (
   req: Request,
   res: Response
@@ -115,10 +117,10 @@ export const addDeatilWorkout = async (
 
   let workoutDetail: Prisma.WorkoutDetailCreateInput;
   workoutDetail = {
-    workoutPlan: { connect: { plan_id: req.body.workout.workout_id } },
     base_weight: req.body.base_weight,
     sets: req.body.sets,
     reps: req.body.reps,
+    workoutPlan: { connect: { plan_id: req.body.plan.plan_id } },
     exercise: { connect: { exercise_id: req.body.exercise.exercise_id } },
   };
 

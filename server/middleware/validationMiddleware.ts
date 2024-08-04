@@ -15,7 +15,7 @@ export const validateSchema = (schema: Joi.Schema) => {
 export const exerciseSchema = Joi.object({
   name: Joi.string().required(),
   description: Joi.string().max(255).required(),
-  category: Joi.string(),
+  category: Joi.object(),
 });
 
 export const planSchema = Joi.object({

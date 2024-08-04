@@ -10,6 +10,13 @@ export const getExercises = async (
   const exercises = await prisma.exercise.findMany();
   res.json(exercises);
 };
+export const getExerciseCategories = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  const data = await prisma.category.findMany();
+  res.json(data);
+};
 
 export const createExercise = async (
   req: Request,
@@ -26,7 +33,7 @@ export const createExercise = async (
   exercise = {
     name: req.body.name,
     description: req.body.description,
-    category: req.body.category,
+    category: { connect: { category_id: req.body.category.category_id } },
   };
   const create = await prisma.exercise.create({ data: exercise });
   res.json(create);
@@ -51,15 +58,15 @@ export const updateExercise = async (
   const exercise = {
     name: req.body.name,
     description: req.body.description,
-    category: req.body.category,
+    category: { connect: { category_id: req.body.category.category_id } },
   };
-  const updateUser = await prisma.exercise.update({
+  const update = await prisma.exercise.update({
     where: {
       exercise_id: id,
     },
     data: exercise,
   });
-  res.json(updateUser);
+  res.json(update);
 };
 
 export const deleteExercise = async (

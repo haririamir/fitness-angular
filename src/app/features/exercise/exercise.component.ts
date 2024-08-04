@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { IExersice } from 'src/app/types/exercise/exersice.model';
 import { ExerciseService } from '../services/exercise.service';
 import { TableComponent } from 'src/app/components/table/table.component';
+import { ExerciseCategoryService } from '../services/exercise-category.service';
 
 @Component({
   selector: 'app-exercise',
@@ -21,6 +22,7 @@ export class ExerciseComponent implements OnInit, OnDestroy {
   myForm = {} as FormGroup;
   exercises = [] as IExersice[];
   exercise = {} as IExersice;
+  categories: any[] = [];
   subs: Subscription = new Subscription();
   isEdit = false as boolean;
 
@@ -28,6 +30,7 @@ export class ExerciseComponent implements OnInit, OnDestroy {
 
   constructor(
     private exerciseService: ExerciseService,
+    private exersiceCategory: ExerciseCategoryService,
     private fb: FormBuilder
   ) {}
 
@@ -45,6 +48,7 @@ export class ExerciseComponent implements OnInit, OnDestroy {
     this.subs = this.exerciseService.getAll().subscribe((exs) => {
       this.exercises = exs;
     });
+    this.exersiceCategory.getAll().subscribe((res) => (this.categories = res));
   }
 
   ngOnDestroy(): void {

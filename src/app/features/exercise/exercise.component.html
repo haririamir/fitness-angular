@@ -18,18 +18,13 @@
                 placeholder="Name"
               />
             </mat-form-field>
-            <mat-form-field
-              appearance="fill"
-              class="w-100"
-              autocomplete="password"
-            >
-              <mat-label>Category:</mat-label>
-              <input
-                formControlName="category"
-                name="category"
-                matInput
-                placeholder="Category"
-              />
+            <mat-form-field appearance="fill">
+              <mat-label>Category</mat-label>
+              <mat-select formControlName="exercise" name="exercise">
+                <mat-option *ngFor="let ex of categories" [value]="ex">{{
+                  ex.name
+                }}</mat-option>
+              </mat-select>
             </mat-form-field>
 
             <mat-form-field

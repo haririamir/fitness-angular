@@ -7,7 +7,14 @@ export const getExercises = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  const exercises = await prisma.exercise.findMany();
+  const exercises = await prisma.exercise.findMany({
+    select: {
+      category: true,
+      name: true,
+      description: true,
+      exercise_id: true,
+    },
+  });
   res.json(exercises);
 };
 export const getExerciseCategories = async (
@@ -33,7 +40,7 @@ export const createExercise = async (
   exercise = {
     name: req.body.name,
     description: req.body.description,
-    category: { connect: { category_id: req.body.category.category_id } },
+    category: { connect: { category_id: req.body.category_id } },
   };
   const create = await prisma.exercise.create({ data: exercise });
   res.json(create);
@@ -55,10 +62,11 @@ export const updateExercise = async (
     res.status(404).json({ error: 'Not found' });
     return;
   }
+  console.log('AsdasdasD', req.body);
   const exercise = {
     name: req.body.name,
     description: req.body.description,
-    category: { connect: { category_id: req.body.category.category_id } },
+    category: { connect: { category_id: req.body.category_id } },
   };
   const update = await prisma.exercise.update({
     where: {

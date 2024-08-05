@@ -16,6 +16,7 @@ export const exerciseSchema = Joi.object({
   name: Joi.string().required(),
   description: Joi.string().max(255).required(),
   category: Joi.object(),
+  category_id: Joi.number(),
 });
 
 export const planSchema = Joi.object({

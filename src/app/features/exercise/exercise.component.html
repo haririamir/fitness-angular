@@ -20,10 +20,12 @@
             </mat-form-field>
             <mat-form-field appearance="fill">
               <mat-label>Category</mat-label>
-              <mat-select formControlName="category" name="category">
-                <mat-option *ngFor="let ex of categories" [value]="ex">{{
-                  ex.name
-                }}</mat-option>
+              <mat-select formControlName="category_id" name="category_id">
+                <mat-option
+                  *ngFor="let ex of categories"
+                  [value]="ex.category_id"
+                  >{{ ex.name }}</mat-option
+                >
               </mat-select>
             </mat-form-field>
 

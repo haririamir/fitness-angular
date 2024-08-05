@@ -40,10 +40,10 @@ export class ExerciseComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.myForm = this.fb.group({
-      exercise_id: '',
+      exercise_id: null,
+      category_id: null,
       name: '',
       description: '',
-      category: '',
     });
     this.subs = this.exerciseService.getAll().subscribe((exs) => {
       this.exercises = exs;
@@ -67,8 +67,12 @@ export class ExerciseComponent implements OnInit, OnDestroy {
   }
 
   onEditClicked(element: IExersice) {
+    console.log('🚀 ~ ExerciseComponent ~ onEditClicked ~ element:', element);
     this.isEdit = true;
-    this.myForm = this.fb.group(element);
+    this.myForm = this.fb.group({
+      ...element,
+      cateogry_id: element.category.cateogry_id,
+    });
   }
 
   handleSubmit() {
@@ -79,6 +83,7 @@ export class ExerciseComponent implements OnInit, OnDestroy {
           name: this.myForm.value.name,
           description: this.myForm.value.description,
           category: this.myForm.value.category,
+          cateogry_id: this.myForm.value.cateogry_id,
         })
         .subscribe({
           next: (res) => {

@@ -8,7 +8,7 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header>
         {{ headerLabel[i] }}
       </th>
-      <td mat-cell *matCellDef="let row">{{ row[column] }}</td>
+      <td mat-cell *matCellDef="let row">{{ row[column] | customCol }}</td>
     </ng-container>
 
     <ng-container actions matColumnDef="actions">

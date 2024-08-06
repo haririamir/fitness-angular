@@ -1,10 +1,15 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { IExersice } from 'src/app/types/exercise/exersice.model';
-import { ExerciseService } from '../services/exercise.service';
 import { TableComponent } from 'src/app/components/table/table.component';
+import { IExersice } from 'src/app/types/exercise/exersice.model';
 import { ExerciseCategoryService } from '../services/exercise-category.service';
+import { ExerciseService } from '../services/exercise.service';
 
 @Component({
   selector: 'app-exercise',
@@ -31,7 +36,7 @@ export class ExerciseComponent implements OnInit, OnDestroy {
   constructor(
     private exerciseService: ExerciseService,
     private exersiceCategory: ExerciseCategoryService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
   ) {}
 
   updateTable() {
@@ -66,12 +71,10 @@ export class ExerciseComponent implements OnInit, OnDestroy {
     });
   }
 
-  onEditClicked(element: IExersice) {
-    console.log('🚀 ~ ExerciseComponent ~ onEditClicked ~ element:', element);
+  onEditClicked(element: any) {
     this.isEdit = true;
     this.myForm = this.fb.group({
       ...element,
-      cateogry_id: element.category.cateogry_id,
     });
   }
 
@@ -83,18 +86,17 @@ export class ExerciseComponent implements OnInit, OnDestroy {
           name: this.myForm.value.name,
           description: this.myForm.value.description,
           category: this.myForm.value.category,
-          cateogry_id: this.myForm.value.cateogry_id,
+          category_id: this.myForm.value.category_id,
         })
         .subscribe({
           next: (res) => {
-            const idx = this.exercises.findIndex(
-              (i) => i.exercise_id === res.exercise_id
-            );
-
-            this.exercises[idx] = res;
-            this.myForm.reset();
+            let org = this.exercises;
+            const idx = org.findIndex((i) => i.exercise_id === res.exercise_id);
+            org[idx] = res;
+            this.exercises.slice(0, idx);
+            this.exercises.splice(idx, 0, res);
+           
             this.updateTable();
-            this.isEdit = false;
           },
         });
       return;
@@ -104,7 +106,7 @@ export class ExerciseComponent implements OnInit, OnDestroy {
       .create({
         name: this.myForm.value.name,
         description: this.myForm.value.description,
-        category: this.myForm.value.category,
+        category_id: this.myForm.value.category_id,
       })
       .subscribe({
         next: (res) => {

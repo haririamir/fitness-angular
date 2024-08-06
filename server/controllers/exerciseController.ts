@@ -13,6 +13,7 @@ export const getExercises = async (
       name: true,
       description: true,
       exercise_id: true,
+      category_id: true,
     },
   });
   res.json(exercises);
@@ -62,7 +63,6 @@ export const updateExercise = async (
     res.status(404).json({ error: 'Not found' });
     return;
   }
-  console.log('AsdasdasD', req.body);
   const exercise = {
     name: req.body.name,
     description: req.body.description,

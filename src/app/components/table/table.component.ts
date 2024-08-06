@@ -67,7 +67,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   @Input() columns: string[] = [];
   @Input() data: any[] = [];
   @Input() headerLabel: string[] = [];
-  
+
   @Output() rowAction = new EventEmitter<{
     action: string;
     row: any;

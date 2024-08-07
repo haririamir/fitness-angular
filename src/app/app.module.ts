@@ -12,9 +12,11 @@ import { AuthService } from './core/services/auth.service';
 import { FeaturesModule } from './features/features.module';
 import { ExerciseService } from './features/services/exercise.service';
 import { MaterialExampleModule } from './material.module';
+import { ModalComponent } from './components/modal/modal.component';
+import { MODAL_DATA } from './components/modal/modal.tokens';  // Import the token
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ModalComponent],
   imports: [
     CoreModule,
     BrowserModule,

@@ -23,6 +23,7 @@ export class WorkoutDetailsFormComponent implements OnInit {
     private planService: PlanService,
     private workoutDetailService: WorkoutDetailService
   ) {}
+  
 
   ngOnInit(): void {
     this.myForm = this.fb.group({

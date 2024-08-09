@@ -1,0 +1,46 @@
+<form [formGroup]="myForm" #f="ngForm" (ngSubmit)="handleSubmit()">
+    <div class="flex flex-col">
+      <mat-form-field
+        appearance="fill"
+        class="w-100"
+        autocomplete="password"
+      >
+        <mat-label>Name:</mat-label>
+        <input
+          formControlName="name"
+          name="name"
+          id="name"
+          matInput
+          placeholder="Name"
+        />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="category_id" name="category_id">
+          <mat-option
+            *ngFor="let ex of categories"
+            [value]="ex.category_id"
+            >{{ ex.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field
+        appearance="fill"
+        class="w-100"
+        autocomplete="password"
+      >
+        <mat-label>Description:</mat-label>
+        <textarea
+          formControlName="description"
+          name="description"
+          matInput
+          placeholder="Descrption"
+        ></textarea>
+      </mat-form-field>
+
+      <button mat-flat-button color="primary" type="submit">
+        Add Exercise
+      </button>
+    </div>
+  </form>

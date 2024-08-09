@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ExerciseComponent } from './exercise/exercise.component';
+import { ExerciseComponent } from './exercises/exercise.component';
 import { MaterialExampleModule } from '../material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PlanFormComponent } from './plan-root/plan-form/plan-form.component';
@@ -16,6 +16,8 @@ import { WorkoutFormComponent } from './workout-root/workout-form/workout-form.c
 import { WorkoutDetailsRootComponent } from './workout-details-root/workout-details-root.component';
 import { WorkoutDetailsListComponent } from './workout-details-root/workout-details-list/workout-details-list.component';
 import { WorkoutDetailsFormComponent } from './workout-details-root/workout-details-form/workout-details-form.component';
+import { ExerciseFormComponent } from './exercises/exercise-form/exercise-form.component';
+import { ExerciseListComponent } from './exercises/exercise-list/exercise-list.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { WorkoutDetailsFormComponent } from './workout-details-root/workout-deta
     WorkoutDetailsRootComponent,
     WorkoutDetailsListComponent,
     WorkoutDetailsFormComponent,
+    ExerciseFormComponent,
+    ExerciseListComponent,
   ],
   providers: [ExerciseService, PlanService],
   imports: [

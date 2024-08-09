@@ -1,0 +1,8 @@
+<mat-selection-list #shoes [multiple]="false">
+  <mat-list-item *ngFor="let menu of listMenu">
+    <mat-icon mat-list-icon>{{ menu.icon }}</mat-icon>
+    <a [routerLink]="menu.link" routerLinkActive="active" matLine>
+      {{ menu.name }}
+    </a>
+  </mat-list-item>
+</mat-selection-list>

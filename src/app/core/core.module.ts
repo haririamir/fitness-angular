@@ -10,9 +10,16 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { FormsModule } from '@angular/forms';
 import { MaterialExampleModule } from '../material.module';
+import { MenuComponent } from './layout/menu/menu.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [HeaderComponent, LoginComponent, SignupComponent],
+  declarations: [
+    HeaderComponent,
+    LoginComponent,
+    SignupComponent,
+    MenuComponent,
+  ],
   imports: [
     FormsModule,
     CommonModule,
@@ -22,7 +29,8 @@ import { MaterialExampleModule } from '../material.module';
     MatTooltipModule,
     MatFormFieldModule,
     MaterialExampleModule,
+    RouterModule
   ],
-  exports: [HeaderComponent, LoginComponent, SignupComponent],
+  exports: [HeaderComponent, LoginComponent, SignupComponent, MenuComponent],
 })
 export class CoreModule {}

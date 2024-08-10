@@ -49,18 +49,11 @@ export class ExerciseFormComponent implements OnInit {
         });
       return;
     }
-
-    this.exerciseService
-      .create({
-        name: this.myForm.value.name,
-        description: this.myForm.value.description,
-        category_id: this.myForm.value.category_id,
-      })
-      .subscribe({
-        next: (res) => {
-          this.myForm.reset();
-          // this.updateTable();
-        },
-      });
+    this.exerciseService.addExercise({
+      name: this.myForm.value.name,
+      description: this.myForm.value.description,
+      category_id: this.myForm.value.category_id,
+      category: undefined,
+    });
   }
 }

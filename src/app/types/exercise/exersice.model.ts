@@ -1,9 +1,9 @@
 export interface IExersice {
   name: string;
   description: string;
-  exercise_id: number;
+  exercise_id?: number;
   category_id: number;
-  category: ICategory;
+  category?: ICategory;
 }
 
 interface ICategory {

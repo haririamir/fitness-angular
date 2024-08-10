@@ -22,9 +22,12 @@ export class ExerciseListComponent implements OnInit {
   constructor(private exerciseService: ExerciseService) {}
 
   ngOnInit(): void {
-    this.exerciseService.getAll().subscribe((exs) => {
-      this.exercises = exs;
+    this.exerciseService.exercises.subscribe((res) => {
+      this.exercises = res;
     });
+
+    // Fetch users when the component is initialized
+    this.exerciseService.fetchExercises();
   }
 
   onDelete(element: IExersice) {

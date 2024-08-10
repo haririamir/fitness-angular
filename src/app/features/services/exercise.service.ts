@@ -28,7 +28,7 @@ export class ExerciseService extends DataService {
   addExercise(newExercises: IExersice): void {
     this.create(newExercises).subscribe((res) => {
       const current = this.exercisesSubject.value;
-      this.exercisesSubject.next([...current, newExercises]);
+      this.exercisesSubject.next([...current, { ...res, ...newExercises }]);
     });
   }
 

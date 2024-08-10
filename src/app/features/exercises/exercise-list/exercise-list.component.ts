@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ExerciseService } from '../../services/exercise.service';
 import { IExersice } from 'src/app/types/exercise/exersice.model';
+import { ModalService } from 'src/app/services/modal.service';
+import { ExerciseFormComponent } from '../exercise-form/exercise-form.component';
 
 @Component({
   selector: 'app-exercise-list',
@@ -19,7 +21,18 @@ export class ExerciseListComponent implements OnInit {
   exercises = [] as IExersice[];
   isEdit = false as boolean;
 
-  constructor(private exerciseService: ExerciseService) {}
+  constructor(
+    private exerciseService: ExerciseService,
+    private modalService: ModalService
+  ) {}
+
+  openExerciseModal(formData: IExersice): void {
+    this.modalService.openModal({
+      title: 'Exercise',
+      component: ExerciseFormComponent,
+      componentData: { formData },
+    });
+  }
 
   ngOnInit(): void {
     this.exerciseService.exercises.subscribe((res) => {
@@ -31,17 +44,11 @@ export class ExerciseListComponent implements OnInit {
   }
 
   onDelete(element: IExersice) {
-    this.exerciseService.delete(element.exercise_id).subscribe({
-      next: (res) => {
-        this.exercises = this.exercises.filter(
-          (i) => i.exercise_id !== element.exercise_id
-        );
-      },
-    });
+    this.exerciseService.deleteExercise(element.exercise_id);
   }
 
-  onEditClicked(element: any) {
-    this.isEdit = true;
+  onEditClicked(element: IExersice) {
+    this.openExerciseModal(element);
   }
 
   onRowAction(event: { action: string; row: any }) {

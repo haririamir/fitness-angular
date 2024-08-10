@@ -24,39 +24,31 @@ export class ExerciseService extends DataService {
     });
   }
 
-  // Add a new user and update the shared state
+  // Add a new exercise and update the shared state
   addExercise(newExercises: IExersice): void {
     this.create(newExercises).subscribe((res) => {
-      const currentUsers = this.exercisesSubject.value;
-      this.exercisesSubject.next([...currentUsers, newExercises]);
+      const current = this.exercisesSubject.value;
+      this.exercisesSubject.next([...current, newExercises]);
     });
   }
 
-  // Delete a user and update the shared state
-  // deleteUser(userId: any): void {
-  //   this.delete(userId)
-  //     .pipe(
-  //       tap(() => {
-  //         const currentUsers = this.usersSubject.value.filter(
-  //           (user) => user.id !== userId
-  //         );
-  //         this.usersSubject.next(currentUsers);
-  //       })
-  //     )
-  //     .subscribe();
-  // }
+  // Delete a exercise and update the shared state
+  deleteExercise(exerciseId: any): void {
+    this.delete(exerciseId).subscribe(() => {
+      const current = this.exercisesSubject.value.filter(
+        (ex) => ex.exercise_id !== exerciseId
+      );
+      this.exercisesSubject.next(current);
+    });
+  }
 
-  // // Update a user and update the shared state
-  // updateUser(userId: any, updatedData: any): void {
-  //   this.update(userId, updatedData)
-  //     .pipe(
-  //       tap((updatedUser) => {
-  //         const currentUsers = this.usersSubject.value.map((user) =>
-  //           user.id === userId ? updatedUser : user
-  //         );
-  //         this.usersSubject.next(currentUsers);
-  //       })
-  //     )
-  //     .subscribe();
-  // }
+  // Update a exercise and update the shared state
+  updateExercise(exerciseId: any, updatedData: any): void {
+    this.update(exerciseId, updatedData).subscribe(() => {
+      const current = this.exercisesSubject.value.map((ex) =>
+        ex.exercise_id === exerciseId ? updatedData : ex
+      );
+      this.exercisesSubject.next(current);
+    });
+  }
 }

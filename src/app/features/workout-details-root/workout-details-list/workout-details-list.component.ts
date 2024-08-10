@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { WorkoutDetailService } from '../../services/workout-detail.service';
 import { IWorkoutDetail } from 'src/app/types/exercise/workout.model';
+import { WorkoutDetailService } from '../../services/workout-detail.service';
 
 @Component({
   selector: 'app-workout-details-list',
@@ -8,10 +8,11 @@ import { IWorkoutDetail } from 'src/app/types/exercise/workout.model';
   styleUrls: ['./workout-details-list.component.css'],
 })
 export class WorkoutDetailsListComponent implements OnInit {
-  constructor(private workoutDetailService: WorkoutDetailService) {}
   workoutDetails: IWorkoutDetail[] = [];
+  constructor(private workoutDetailService: WorkoutDetailService) {}
+
   ngOnInit(): void {
-    this.workoutDetailService.getAll().subscribe((res) => {
+    this.workoutDetailService.entities$.subscribe((res) => {
       this.workoutDetails = res;
     });
   }

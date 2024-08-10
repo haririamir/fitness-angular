@@ -22,8 +22,11 @@ export class PlanFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.workoutServive.getAll().subscribe((res) => (this.workouts = res));
-    this.userSerive.getAll().subscribe((res) => (this.users = res));
+    this.workoutServive.entities$.subscribe((res) => (this.workouts = res));
+    this.userSerive.entities$.subscribe((res) => (this.users = res));
+
+    this.userSerive.fetchEntities()
+    this.workoutServive.fetchEntities()
   }
 
   handleSubmit(formValue: NgForm) {

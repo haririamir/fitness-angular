@@ -1,20 +1,13 @@
 import {
-  AfterContentInit,
-  AfterViewInit,
-  Component,
-  OnInit,
-} from '@angular/core';
-import { PlanService } from '../../services/plan.service';
-import { Subscription } from 'rxjs';
-import { IPlan } from 'src/app/types/exercise/plan.model';
-import {
   animate,
   state,
   style,
   transition,
   trigger,
 } from '@angular/animations';
-import { IWorkoutDetail } from 'src/app/types/exercise/workout.model';
+import { AfterContentInit, Component, OnInit } from '@angular/core';
+import { IPlan } from 'src/app/types/exercise/plan.model';
+import { PlanService } from '../../services/plan.service';
 import { WorkoutDetailService } from '../../services/workout-detail.service';
 
 @Component({
@@ -33,7 +26,6 @@ import { WorkoutDetailService } from '../../services/workout-detail.service';
   ],
 })
 export class PlanListComponent implements OnInit, AfterContentInit {
-  subs: Subscription = new Subscription();
   displayedColumns: string[] = ['plan_id', 'user', 'workout', 'actions'];
   labels: string[] = ['PlanID', 'User', 'Workout', 'Actions'];
   plans = [] as any[];
@@ -45,22 +37,20 @@ export class PlanListComponent implements OnInit, AfterContentInit {
   ) {}
 
   ngOnInit(): void {
-    this.planService.getAll().subscribe((res) => (this.plans = res));
-  }
-  ngAfterContentInit(): void {}
-  ngOnDestroy(): void {
-    this.subs.unsubscribe();
+    this.planService.entities$.subscribe((res) => (this.plans = res));
+    this.planService.fetchEntities();
   }
 
+  ngAfterContentInit(): void {}
+
+  ngOnDestroy(): void {}
+
   handleDelete(row: IPlan) {
-    this.planService
-      .delete(row.plan_id)
-      .subscribe((res) =>
-        this.plans.filter((item) => item.plan_id !== row.plan_id)
-      );
+    this.planService.deleteEntity(row.plan_id);
   }
+
   handleDeleteDetail(id: number) {
-    this.workoutDetailService.delete(id).subscribe((res) => {});
+    this.workoutDetailService.deleteEntity(id);
   }
 
   handleEdit(row: IPlan) {}

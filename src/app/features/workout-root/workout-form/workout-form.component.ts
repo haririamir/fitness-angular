@@ -28,39 +28,19 @@ export class WorkoutFormComponent implements OnInit, OnDestroy {
   handleSubmit() {
     if (this.isEdit) {
       this.isEdit = true;
-      this.workoutService
-        .update(this.myForm.value.exercise_id, {
-          name: this.myForm.value.name,
-          description: this.myForm.value.description,
-        })
-        .subscribe({
-          next: (res) => {
-            // const idx = this.exercises.findIndex(
-            //   (i) => i.exercise_id === res.exercise_id
-            // );
+      this.workoutService.updateEntity(this.myForm.value.exercise_id, {
+        name: this.myForm.value.name,
+        description: this.myForm.value.description,
+      });
+      this.myForm.reset();
 
-            // this.exercises[idx] = res;
-            // this.table.renderRows();
-            this.myForm.reset();
-          },
-        });
       return;
     }
 
-    this.workoutService
-      .create({
-        name: this.myForm.value.name,
-        description: this.myForm.value.description,
-        category: this.myForm.value.category,
-      })
-      .subscribe({
-        next: (res) => {
-          this.workoutService.changeData([
-            ...this.workoutService.getData(),
-            res,
-          ]);
-          this.myForm.reset();
-        },
-      });
+    this.workoutService.addEntity({
+      name: this.myForm.value.name,
+      description: this.myForm.value.description,
+    });
+    this.myForm.reset();
   }
 }

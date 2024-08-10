@@ -2,7 +2,7 @@ import { IExersice } from './exersice.model';
 import { IPlan } from './plan.model';
 
 export interface IWorkout {
-  workout_id: number;
+  workout_id?: number;
   name: string;
   description: string;
 }

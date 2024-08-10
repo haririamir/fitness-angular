@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MODAL_DATA } from 'src/app/components/modal/modal.tokens';
 import { ExerciseService } from '../../services/exercise.service';
 import { ExerciseCategoryService } from '../../services/exercise-category.service';
-import { MODAL_DATA } from 'src/app/components/modal/modal.tokens';
 
 @Component({
   selector: 'app-exercise-form',
@@ -17,7 +17,7 @@ export class ExerciseFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private exerciseService: ExerciseService,
-    private exersiceCategory: ExerciseCategoryService,
+    private exerciseCategories: ExerciseCategoryService,
     @Inject(MODAL_DATA) public data: any
   ) {
     this.myForm = this.fb.group(
@@ -31,14 +31,15 @@ export class ExerciseFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.exersiceCategory.getAll().subscribe((res) => {
-      this.categories = res;
-    });
+    this.exerciseCategories.entities$.subscribe(
+      (res) => (this.categories = res)
+    );
+    this.exerciseCategories.fetchEntities()
   }
 
   handleSubmit() {
     if (this.data.formData) {
-      this.exerciseService.updateExercise(this.myForm.value.exercise_id, {
+      this.exerciseService.updateEntity(this.myForm.value.exercise_id, {
         name: this.myForm.value.name,
         description: this.myForm.value.description,
         category: this.myForm.value.category,
@@ -46,7 +47,7 @@ export class ExerciseFormComponent implements OnInit {
       });
       return;
     }
-    this.exerciseService.addExercise({
+    this.exerciseService.addEntity({
       name: this.myForm.value.name,
       description: this.myForm.value.description,
       category_id: this.myForm.value.category_id,

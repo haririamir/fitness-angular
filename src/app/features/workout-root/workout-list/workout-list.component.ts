@@ -18,20 +18,14 @@ export class WorkoutListComponent implements OnInit, OnDestroy {
   constructor(private workoutService: WorkoutService) {}
 
   ngOnInit(): void {
-    this.workoutService.fetching();
-    this.workoutService.currentData.subscribe((data) => (this.workouts = data));
+    this.workoutService.entities$.subscribe((res) => (this.workouts = res));
+    this.workoutService.fetchEntities();
   }
 
   ngOnDestroy(): void {}
 
   async handleDelete(row: IWorkout) {
-    await this.workoutService
-      .delete(row.workout_id)
-      .subscribe((e) =>
-        this.workoutService.changeData(
-          this.workouts.filter((i) => i.workout_id !== row.workout_id)
-        )
-      );
+    this.workoutService.deleteEntity(row.workout_id);
   }
 
   onRowAction(event: { action: string; row: IWorkout }) {

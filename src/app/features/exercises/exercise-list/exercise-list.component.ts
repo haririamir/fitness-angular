@@ -35,16 +35,15 @@ export class ExerciseListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.exerciseService.exercises.subscribe((res) => {
+    this.exerciseService.entities$.subscribe((res) => {
       this.exercises = res;
     });
 
-    // Fetch users when the component is initialized
-    this.exerciseService.fetchExercises();
+    this.exerciseService.fetchEntities();
   }
 
   onDelete(element: IExersice) {
-    this.exerciseService.deleteExercise(element.exercise_id);
+    this.exerciseService.deleteEntity(element.exercise_id);
   }
 
   onEditClicked(element: IExersice) {

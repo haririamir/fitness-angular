@@ -6,8 +6,6 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class ExercisesService extends DataService {
-  constructor(http: HttpClient) {
-    super(http, 'http://localhost:3000/users');
-  }
+export class ExercisesService {
+  constructor(http: HttpClient) {}
 }

@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ExerciseService } from '../../services/exercise.service';
 import { IExersice } from 'src/app/types/exercise/exersice.model';
-import { WorkoutService } from '../../services/workout.service';
-import { IWorkout } from 'src/app/types/exercise/workout.model';
-import { WorkoutDetailService } from '../../services/workout-detail.service';
-import { PlanService } from '../../services/plan.service';
 import { IPlan } from 'src/app/types/exercise/plan.model';
+import { ExerciseService } from '../../services/exercise.service';
+import { PlanService } from '../../services/plan.service';
+import { WorkoutDetailService } from '../../services/workout-detail.service';
 
 @Component({
   selector: 'app-workout-details-form',
@@ -23,7 +21,6 @@ export class WorkoutDetailsFormComponent implements OnInit {
     private planService: PlanService,
     private workoutDetailService: WorkoutDetailService
   ) {}
-  
 
   ngOnInit(): void {
     this.myForm = this.fb.group({
@@ -33,16 +30,17 @@ export class WorkoutDetailsFormComponent implements OnInit {
       plan: {},
       exercise: {},
     });
-    this.exerciseService.getAll().subscribe((res) => (this.exercises = res));
-    this.planService.getAll().subscribe((data) => (this.plans = data));
+    this.exerciseService.entities$.subscribe((res) => (this.exercises = res));
+    this.planService.entities$.subscribe((data) => (this.plans = data));
+
+    this.exerciseService.fetchEntities();
+    this.planService.fetchEntities();
   }
 
   handleSubmit() {
-    this.workoutDetailService
-      .create({
-        ...this.myForm.value,
-        base_weight: parseFloat(this.myForm.value.base_weight),
-      })
-      .subscribe((res) => console.log(res));
+    this.workoutDetailService.addEntity({
+      ...this.myForm.value,
+      base_weight: parseFloat(this.myForm.value.base_weight),
+    });
   }
 }

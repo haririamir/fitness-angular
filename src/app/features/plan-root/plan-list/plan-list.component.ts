@@ -5,10 +5,12 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { AfterContentInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ModalService } from 'src/app/services/modal.service';
 import { IPlan } from 'src/app/types/exercise/plan.model';
 import { PlanService } from '../../services/plan.service';
 import { WorkoutDetailService } from '../../services/workout-detail.service';
+import { PlanFormComponent } from '../plan-form/plan-form.component';
 
 @Component({
   selector: 'app-plan-list',
@@ -25,33 +27,40 @@ import { WorkoutDetailService } from '../../services/workout-detail.service';
     ]),
   ],
 })
-export class PlanListComponent implements OnInit, AfterContentInit {
-  displayedColumns: string[] = ['plan_id', 'user', 'workout', 'actions'];
+export class PlanListComponent implements OnInit {
+  displayedColumns: string[] = ['id', 'user', 'workout', 'actions'];
   labels: string[] = ['PlanID', 'User', 'Workout', 'Actions'];
   plans = [] as any[];
   expandedElement = {};
 
   constructor(
     private planService: PlanService,
-    private workoutDetailService: WorkoutDetailService
+    private workoutDetailService: WorkoutDetailService,
+    private modalService: ModalService
   ) {}
+
+  openPlanModal(formData: IPlan): void {
+    this.modalService.openModal({
+      title: 'Exercise',
+      component: PlanFormComponent,
+      componentData: { formData },
+    });
+  }
 
   ngOnInit(): void {
     this.planService.entities$.subscribe((res) => (this.plans = res));
     this.planService.fetchEntities();
   }
 
-  ngAfterContentInit(): void {}
-
-  ngOnDestroy(): void {}
-
   handleDelete(row: IPlan) {
-    this.planService.deleteEntity(row.plan_id);
+    this.planService.deleteEntity(row.id);
   }
 
   handleDeleteDetail(id: number) {
     this.workoutDetailService.deleteEntity(id);
   }
 
-  handleEdit(row: IPlan) {}
+  handleEdit(row: IPlan) {
+    this.openPlanModal(row);
+  }
 }

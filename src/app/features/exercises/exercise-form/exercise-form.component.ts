@@ -11,7 +11,6 @@ import { ExerciseCategoryService } from '../../services/exercise-category.servic
 })
 export class ExerciseFormComponent implements OnInit {
   myForm = {} as FormGroup;
-  isEdit = false as boolean;
   categories = [] as any;
 
   constructor(
@@ -34,12 +33,12 @@ export class ExerciseFormComponent implements OnInit {
     this.exerciseCategories.entities$.subscribe(
       (res) => (this.categories = res)
     );
-    this.exerciseCategories.fetchEntities()
+    this.exerciseCategories.fetchEntities();
   }
 
   handleSubmit() {
     if (this.data.formData) {
-      this.exerciseService.updateEntity(this.myForm.value.exercise_id, {
+      this.exerciseService.updateEntity(this.myForm.value.id, {
         name: this.myForm.value.name,
         description: this.myForm.value.description,
         category: this.myForm.value.category,

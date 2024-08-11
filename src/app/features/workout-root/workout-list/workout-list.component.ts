@@ -2,6 +2,8 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatTable } from '@angular/material/table';
 import { IWorkout } from 'src/app/types/exercise/workout.model';
 import { WorkoutService } from '../../services/workout.service';
+import { ModalService } from 'src/app/services/modal.service';
+import { WorkoutFormComponent } from '../workout-form/workout-form.component';
 
 @Component({
   selector: 'app-workout-list',
@@ -15,7 +17,18 @@ export class WorkoutListComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['name', 'description'];
   labels: string[] = ['Name', 'Description'];
 
-  constructor(private workoutService: WorkoutService) {}
+  constructor(
+    private workoutService: WorkoutService,
+    private modalService: ModalService
+  ) {}
+
+  openWorkoutForm(formData: IWorkout): void {
+    this.modalService.openModal({
+      title: 'Workout',
+      component: WorkoutFormComponent,
+      componentData: { formData },
+    });
+  }
 
   ngOnInit(): void {
     this.workoutService.entities$.subscribe((res) => (this.workouts = res));
@@ -25,13 +38,13 @@ export class WorkoutListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {}
 
   async handleDelete(row: IWorkout) {
-    this.workoutService.deleteEntity(row.workout_id);
+    this.workoutService.deleteEntity(row.id);
   }
 
   onRowAction(event: { action: string; row: IWorkout }) {
     switch (event.action) {
       case 'edit':
-        // this.workoutService.deleteItem(event.row.workout_id);
+        this.openWorkoutForm(event.row);
         break;
       case 'delete':
         this.handleDelete(event.row);

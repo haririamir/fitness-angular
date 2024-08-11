@@ -34,16 +34,16 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Workout:</mat-label>
-      <mat-select formControlName="plan">
-        <mat-option *ngFor="let ex of plans" [value]="ex">{{
+      <mat-select formControlName="plan_id">
+        <mat-option *ngFor="let ex of plans" [value]="ex.id">{{
           ex.workout.name
         }}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Exercise</mat-label>
-      <mat-select formControlName="exercise" name="exercise">
-        <mat-option *ngFor="let ex of exercises" [value]="ex">{{
+      <mat-select formControlName="exercise_id" name="exercise_id">
+        <mat-option *ngFor="let ex of exercises" [value]="ex.id">{{
           ex.name
         }}</mat-option>
       </mat-select>

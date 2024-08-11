@@ -12,7 +12,7 @@ import { ExerciseFormComponent } from '../exercise-form/exercise-form.component'
 export class ExerciseListComponent implements OnInit {
   labels: string[] = ['Exercise ID', 'Name', 'Category', 'Description'];
   displayedColumns: string[] = [
-    'exercise_id',
+    'id',
     'name',
     'category',
     'description',
@@ -43,7 +43,7 @@ export class ExerciseListComponent implements OnInit {
   }
 
   onDelete(element: IExersice) {
-    this.exerciseService.deleteEntity(element.exercise_id);
+    this.exerciseService.deleteEntity(element.id);
   }
 
   onEditClicked(element: IExersice) {

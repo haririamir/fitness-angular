@@ -9,10 +9,10 @@ export const getExercises = async (
 ): Promise<void> => {
   const exercises = await prisma.exercise.findMany({
     select: {
+      id: true,
       category: true,
       name: true,
       description: true,
-      exercise_id: true,
       category_id: true,
     },
   });
@@ -41,7 +41,7 @@ export const createExercise = async (
   exercise = {
     name: req.body.name,
     description: req.body.description,
-    category: { connect: { category_id: req.body.category_id } },
+    category: { connect: { id: req.body.category_id } },
   };
   const create = await prisma.exercise.create({ data: exercise });
   res.json(create);
@@ -66,11 +66,11 @@ export const updateExercise = async (
   const exercise = {
     name: req.body.name,
     description: req.body.description,
-    category: { connect: { category_id: req.body.category_id } },
+    category: { connect: { id: req.body.category_id } },
   };
   const update = await prisma.exercise.update({
     where: {
-      exercise_id: id,
+      id,
     },
     data: exercise,
   });
@@ -85,7 +85,7 @@ export const deleteExercise = async (
     const id = parseInt(req.params.id);
     await prisma.exercise.delete({
       where: {
-        exercise_id: id,
+        id,
       },
     });
     res.send({ message: 'Item deleted successfully' });

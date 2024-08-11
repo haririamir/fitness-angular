@@ -57,7 +57,7 @@ export const updateWorkout = async (
   };
   const update = await prisma.workout.update({
     where: {
-      workout_id: id,
+      id,
     },
     data: workout,
   });
@@ -72,7 +72,7 @@ export const removeWorkout = async (
     const id = parseInt(req.params.id);
     await prisma.workout.delete({
       where: {
-        workout_id: id,
+        id,
       },
     });
     res.send({ message: 'Item deleted successfully' });
@@ -92,7 +92,7 @@ export const removeWorkoutDetail = async (
     const id = parseInt(req.params.id);
     await prisma.workoutDetail.delete({
       where: {
-        detail_id: id,
+        id,
       },
     });
     res.send({ message: 'Item deleted successfully' });
@@ -120,11 +120,17 @@ export const addDeatilWorkout = async (
     base_weight: req.body.base_weight,
     sets: req.body.sets,
     reps: req.body.reps,
-    workoutPlan: { connect: { plan_id: req.body.plan.plan_id } },
-    exercise: { connect: { exercise_id: req.body.exercise.exercise_id } },
+    workoutPlan: { connect: { id: req.body.plan_id } },
+    exercise: { connect: { id: req.body.exercise_id } },
   };
 
-  const create = await prisma.workoutDetail.create({ data: workoutDetail });
+  const create = await prisma.workoutDetail.create({
+    data: workoutDetail,
+    include: {
+      exercise: true,
+      workoutPlan: true,
+    },
+  });
   res.json(create);
 };
 

@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { WorkoutService } from '../../services/workout.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MODAL_DATA } from 'src/app/components/modal/modal.tokens';
 @Component({
   selector: 'app-workout-form',
   templateUrl: './workout-form.component.html',
@@ -12,23 +13,25 @@ export class WorkoutFormComponent implements OnInit, OnDestroy {
   isEdit = false as boolean;
   constructor(
     private fb: FormBuilder,
-    private workoutService: WorkoutService
+    private workoutService: WorkoutService,
+    @Inject(MODAL_DATA) public data: any
   ) {}
 
   ngOnInit(): void {
-    this.myForm = this.fb.group({
-      workout_id: '',
-      name: '',
-      description: '',
-    });
+    this.myForm = this.fb.group(
+      this.data.formData || {
+        id: '',
+        name: '',
+        description: '',
+      }
+    );
   }
 
   ngOnDestroy(): void {}
 
   handleSubmit() {
-    if (this.isEdit) {
-      this.isEdit = true;
-      this.workoutService.updateEntity(this.myForm.value.exercise_id, {
+    if (this.data.formData) {
+      this.workoutService.updateEntity(this.myForm.value.id, {
         name: this.myForm.value.name,
         description: this.myForm.value.description,
       });

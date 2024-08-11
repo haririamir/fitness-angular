@@ -1,7 +1,7 @@
 export interface IExersice {
+  id?: number;
   name: string;
   description: string;
-  exercise_id?: number;
   category_id: number;
   category?: ICategory;
 }

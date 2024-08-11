@@ -20,7 +20,6 @@ export class AuthService {
       name: auth.username,
       username: auth.username,
       id: Math.round(Math.random() * 1000).toString(),
-      user_id: Math.round(Math.random() * 1000),
     };
     this.authChange.next(true);
     this.route.navigate(['/']);

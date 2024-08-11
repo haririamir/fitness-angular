@@ -14,7 +14,7 @@ datasource db {
 }
 
 model User {
-  user_id      Int           @id @default(autoincrement())
+  id           Int           @id @default(autoincrement())
   name         String
   email        String        @unique
   password     String
@@ -22,56 +22,57 @@ model User {
 }
 
 model Exercise {
-  exercise_id    Int             @id @default(autoincrement())
+  id             Int             @id @default(autoincrement())
   name           String
   description    String?
   category_id    Int?
-  category       Category?       @relation(fields: [category_id], references: [category_id])
+  category       Category?       @relation(fields: [category_id], references: [id])
   workoutDetails WorkoutDetail[]
 }
 
 model Workout {
-  workout_id   Int           @id @default(autoincrement())
+  id           Int           @id @default(autoincrement())
   name         String
   description  String?
   workoutPlans WorkoutPlan[]
 }
 
 model WorkoutPlan {
-  plan_id    Int      @id @default(autoincrement())
+  id         Int      @id @default(autoincrement())
   user_id    Int
   workout_id Int
   start_date DateTime
   end_date   DateTime
 
-  user           User            @relation(fields: [user_id], references: [user_id])
-  workout        Workout         @relation(fields: [workout_id], references: [workout_id])
+  user           User            @relation(fields: [user_id], references: [id])
+  workout        Workout         @relation(fields: [workout_id], references: [id])
   workoutDetails WorkoutDetail[]
 }
 
 model WorkoutDetail {
-  detail_id   Int   @id @default(autoincrement())
+  id          Int   @id @default(autoincrement())
   plan_id     Int
   exercise_id Int
   sets        Int
   reps        Int
   base_weight Float
 
-  workoutPlan      WorkoutPlan      @relation(fields: [plan_id], references: [plan_id])
-  exercise         Exercise         @relation(fields: [exercise_id], references: [exercise_id])
+  workoutPlan      WorkoutPlan      @relation(fields: [plan_id], references: [id])
+  exercise         Exercise         @relation(fields: [exercise_id], references: [id])
   weeklyProgresses WeeklyProgress[]
 }
 
 model WeeklyProgress {
-  progress_id Int   @id @default(autoincrement())
+  id          Int   @id @default(autoincrement())
   detail_id   Int
   week_number Int
   weight      Float
 
-  workoutDetail WorkoutDetail @relation(fields: [detail_id], references: [detail_id])
+  workoutDetail WorkoutDetail @relation(fields: [detail_id], references: [id])
 }
+
 model Category {
-  category_id Int        @id @default(autoincrement())
-  name        String
-  exercises   Exercise[]
+  id        Int        @id @default(autoincrement())
+  name      String
+  exercises Exercise[]
 }

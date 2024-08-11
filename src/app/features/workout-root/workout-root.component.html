@@ -1,5 +1,5 @@
-<div class="flex flex-row m-3">
-  <div class="flex gap-2 m-2 h-auto">
+<div class="flex flex-col m-3">
+  <div class="m-3 gap-2 flex">
     <button mat-flat-button color="primary" (click)="openWorkoutForm()">
       Add Workout
     </button>
@@ -7,7 +7,5 @@
       Add Workout Detail
     </button>
   </div>
-  <div class="flex-1 w-100 position-relative example-table-container">
-    <app-workout-list></app-workout-list>
-  </div>
+  <app-workout-list></app-workout-list>
 </div>

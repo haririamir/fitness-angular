@@ -1,8 +1,8 @@
-<div class="flex flex-row m-3">
+<div class="flex flex-col m-3">
   <div class="m-3">
-    <app-plan-form></app-plan-form>
+    <button mat-flat-button color="primary" (click)="openPlanModal()">
+      Add Plan
+    </button>
   </div>
-  <div class="flex-1 w-100 position-relative example-table-container">
-    <app-plan-list></app-plan-list>
-  </div>
+  <app-plan-list></app-plan-list>
 </div>

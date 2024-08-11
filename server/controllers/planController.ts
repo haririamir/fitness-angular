@@ -10,7 +10,7 @@ const validateSchema = (body: any) => {
 export const getPlans = async (req: Request, res: Response): Promise<void> => {
   const plans = await prisma.workoutPlan.findMany({
     select: {
-      plan_id: true,
+      id: true,
       workout_id: true,
       user_id: true,
       user: true,
@@ -19,7 +19,7 @@ export const getPlans = async (req: Request, res: Response): Promise<void> => {
       end_date: true,
       workoutDetails: {
         select: {
-          detail_id: true,
+          id: true,
           exercise: true,
           sets: true,
           reps: true,
@@ -44,12 +44,15 @@ export const createPlan = async (
 
   let plan: Prisma.WorkoutPlanCreateInput;
   plan = {
-    user: { connect: { user_id: req.body.user_id } },
-    workout: { connect: { workout_id: req.body.workout_id } },
+    user: { connect: { id: req.body.user_id } },
+    workout: { connect: { id: req.body.workout_id } },
     start_date: req.body.start_date,
     end_date: req.body.end_date,
   };
-  const create = await prisma.workoutPlan.create({ data: plan });
+  const create = await prisma.workoutPlan.create({
+    data: plan,
+    include: { user: true, workout: true },
+  });
   res.json(create);
 };
 
@@ -71,14 +74,14 @@ export const updatePlan = async (
   }
 
   const plan = {
-    user: { connect: { user_id: req.body.user_id } },
-    workout: { connect: { workout_id: req.body.workout_id } },
+    user: { connect: { id: req.body.user_id } },
+    workout: { connect: { id: req.body.workout_id } },
     start_date: req.body.start_date,
     end_date: req.body.end_date,
   };
   const update = await prisma.workoutPlan.update({
     where: {
-      plan_id: id,
+      id,
     },
     data: plan,
   });
@@ -93,7 +96,7 @@ export const deletePlan = async (
     const id = parseInt(req.params.id);
     await prisma.workoutPlan.delete({
       where: {
-        plan_id: id,
+        id,
       },
     });
     res.send({ message: 'Item deleted successfully' });

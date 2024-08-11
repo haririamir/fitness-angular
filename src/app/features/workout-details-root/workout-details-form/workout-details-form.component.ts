@@ -27,9 +27,10 @@ export class WorkoutDetailsFormComponent implements OnInit {
       sets: null,
       reps: null,
       base_weight: null,
-      plan: {},
-      exercise: {},
+      plan_id: null,
+      exercise_id: null,
     });
+
     this.exerciseService.entities$.subscribe((res) => (this.exercises = res));
     this.planService.entities$.subscribe((data) => (this.plans = data));
 
@@ -42,5 +43,6 @@ export class WorkoutDetailsFormComponent implements OnInit {
       ...this.myForm.value,
       base_weight: parseFloat(this.myForm.value.base_weight),
     });
+    this.myForm.reset();
   }
 }

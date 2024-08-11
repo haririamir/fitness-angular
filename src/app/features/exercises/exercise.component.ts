@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { TableComponent } from 'src/app/components/table/table.component';
+import { Component, OnInit } from '@angular/core';
 import { ModalService } from 'src/app/services/modal.service';
 import { ExerciseFormComponent } from './exercise-form/exercise-form.component';
 

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatTable } from '@angular/material/table';
+import { MatLegacyTable as MatTable } from '@angular/material/legacy-table';
 import { IWorkout } from 'src/app/types/exercise/workout.model';
 import { WorkoutService } from '../../services/workout.service';
 import { ModalService } from 'src/app/services/modal.service';

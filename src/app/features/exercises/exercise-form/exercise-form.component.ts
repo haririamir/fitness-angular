@@ -44,6 +44,7 @@ export class ExerciseFormComponent implements OnInit {
         category: this.myForm.value.category,
         category_id: this.myForm.value.category_id,
       });
+      this.myForm.reset();
       return;
     }
     this.exerciseService.addEntity({
@@ -52,5 +53,6 @@ export class ExerciseFormComponent implements OnInit {
       category_id: this.myForm.value.category_id,
       category: undefined,
     });
+    this.myForm.reset();
   }
 }

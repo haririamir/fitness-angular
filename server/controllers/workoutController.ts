@@ -1,7 +1,10 @@
 import { Prisma } from '@prisma/client';
 import { Request, Response } from 'express';
 import prisma from '../prismaClient';
-import { workoutSchema } from '../middleware/validationMiddleware';
+import {
+  workoutDetailSchema,
+  workoutSchema,
+} from '../middleware/validationMiddleware';
 
 const validateSchema = (body: any) => {
   return workoutSchema.validate(body);
@@ -108,12 +111,12 @@ export const addDeatilWorkout = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  // const { error } = exerciseSchema.validate(req.body);
+  const { error } = workoutDetailSchema.validate(req.body);
 
-  // if (error) {
-  //   res.status(400).json({ error: error.details[0].message });
-  //   return;
-  // }
+  if (error) {
+    res.status(400).json({ error: error.details[0].message });
+    return;
+  }
 
   let workoutDetail: Prisma.WorkoutDetailCreateInput;
   workoutDetail = {

@@ -30,6 +30,13 @@ export const workoutSchema = Joi.object({
   name: Joi.string().required(),
   description: Joi.string(),
 });
+export const workoutDetailSchema = Joi.object({
+  base_weight: Joi.number().required(),
+  exercise_id: Joi.number().required(),
+  plan_id: Joi.number().required(),
+  reps: Joi.number().required(),
+  sets: Joi.number().required(),
+});
 
 export const userSchema = Joi.object({
   user_id: Joi.number().required(),

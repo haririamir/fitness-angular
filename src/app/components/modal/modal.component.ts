@@ -7,9 +7,9 @@ import {
   OnDestroy,
   Injector,
 } from '@angular/core';
-import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
 import { ComponentPortal, CdkPortalOutlet } from '@angular/cdk/portal';
 import { MODAL_DATA } from './modal.tokens'; // Import the token
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-modal',

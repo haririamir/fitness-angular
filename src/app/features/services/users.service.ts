@@ -5,7 +5,7 @@ import { EntityService } from 'src/app/services/entity.service';
 import { User } from 'src/app/types/auth/user.model';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'any',
 })
 export class UserService extends EntityService<User> {
   private users = new BehaviorSubject<User[]>([]);

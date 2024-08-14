@@ -1,17 +1,18 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/legacy-tooltip';
+import { HeaderComponent } from './layout/header/header.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
-import { HeaderComponent } from './layout/header/header.component';
-import { FormsModule } from '@angular/forms';
-import { MaterialExampleModule } from '../material.module';
 import { MenuComponent } from './layout/menu/menu.component';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MaterialExampleModule } from '../material.module';
 import { RouterModule } from '@angular/router';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { RouterModule } from '@angular/router';
     MatTooltipModule,
     MatFormFieldModule,
     MaterialExampleModule,
-    RouterModule
+    RouterModule,
+    MatListModule,
   ],
   exports: [HeaderComponent, LoginComponent, SignupComponent, MenuComponent],
 })

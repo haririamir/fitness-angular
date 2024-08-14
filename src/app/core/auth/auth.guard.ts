@@ -8,7 +8,7 @@ import {
 import { AuthService } from '../services/auth.service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'any',
 })
 export class PermissionService {
   constructor(private authService: AuthService, private router: Router) {}

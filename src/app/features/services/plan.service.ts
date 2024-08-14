@@ -4,7 +4,7 @@ import { EntityService } from 'src/app/services/entity.service';
 import { IPlan } from 'src/app/types/exercise/plan.model';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'any',
 })
 export class PlanService extends EntityService<IPlan> {
   constructor(http: HttpClient) {

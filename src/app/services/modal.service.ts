@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { ModalComponent } from '../components/modal/modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'any'
 })
 export class ModalService {
   constructor(private dialog: MatDialog) {}

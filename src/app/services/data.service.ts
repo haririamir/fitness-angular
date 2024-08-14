@@ -4,7 +4,7 @@ import { throwError, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'any',
 })
 export class DataService<T> {
   // T is the generic type

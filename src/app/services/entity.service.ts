@@ -5,7 +5,7 @@ import { DataService } from './data.service';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'any',
 })
 export class EntityService<T> extends DataService<T> {
   private entitiesSubject: BehaviorSubject<T[]> = new BehaviorSubject<T[]>([]);
